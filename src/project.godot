@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="Lowrezjam 2024 entry by gheja"
+run/main_scene="res://scenes/main_screen.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=64
+window/size/viewport_height=64
+window/size/window_width_override=640
+window/size/window_height_override=640
+window/stretch/mode="viewport"
 
 [rendering]
 
