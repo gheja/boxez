@@ -1,6 +1,14 @@
 extends Node2D
 
+var belt_velocity = Vector2.ZERO
+var n = 0
+
 func _process(_delta):
+	n += 1
+	
+	if n % 6:
+		return
+	
 	var a = Lib.get_first_group_member("main_tilemaps") as TileMap
 	
 	var cell_coord = a.local_to_map(self.position)
@@ -18,16 +26,29 @@ func _process(_delta):
 	var flip_h = alt_id & TileSetAtlasSource.TRANSFORM_FLIP_H > 0
 	var rotated = alt_id & TileSetAtlasSource.TRANSFORM_TRANSPOSE > 0
 	
-	var v = Vector2.ZERO
-	
 	if not rotated and not flip_h: # >
-		v = Vector2(1, 0)
+		belt_velocity.x = 5
 	elif not rotated and flip_h: # <
-		v = Vector2(-1, 0)
+		belt_velocity.x = -5
 	elif rotated and not flip_h: # ^
-		v = Vector2(0, -1)
+		belt_velocity.y = -5
 	elif rotated and flip_h: # v
-		v = Vector2(0, 1)
+		belt_velocity.y = 5
 	# else:
 	# 	?!
+	
+	var v = Vector2.ZERO
+	
+	if belt_velocity.x > 0:
+		v.x = 1
+	elif belt_velocity.x < 0:
+		v.x = -1
+	
+	if belt_velocity.y > 0:
+		v.y = 1
+	elif belt_velocity.y < 0:
+		v.y = -1
+	
 	self.position += v
+	
+	belt_velocity -= v

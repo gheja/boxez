@@ -9,6 +9,7 @@ script = ExtResource("1_bawob")
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="ShadowSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(1, 1, 1, 0.501961)
 texture = ExtResource("1_5md4c")
 hframes = 45
 vframes = 20
