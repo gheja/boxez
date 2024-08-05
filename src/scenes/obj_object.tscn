@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://d16lbv612q3hl"]
+
+[ext_resource type="Texture2D" uid="uid://dye4ubmolbe14" path="res://assets/tiles.png" id="1_5md4c"]
+
+[node name="ObjObject" type="Node2D"]
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="ShadowSprite" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1_5md4c")
+hframes = 45
+vframes = 20
+frame = 360
+
+[node name="Parts" type="Node2D" parent="Visuals"]
+
+[node name="TopLeftSprite" type="Sprite2D" parent="Visuals/Parts"]
+texture = ExtResource("1_5md4c")
+hframes = 45
+vframes = 20
+frame = 405
+
+[node name="BottomLeftSprite" type="Sprite2D" parent="Visuals/Parts"]
+texture = ExtResource("1_5md4c")
+hframes = 45
+vframes = 20
+frame = 406
+
+[node name="BottomRightSprite" type="Sprite2D" parent="Visuals/Parts"]
+visible = false
+texture = ExtResource("1_5md4c")
+hframes = 45
+vframes = 20
+frame = 407
+
+[node name="TopRightSprite" type="Sprite2D" parent="Visuals/Parts"]
+visible = false
+texture = ExtResource("1_5md4c")
+hframes = 45
+vframes = 20
+frame = 408
