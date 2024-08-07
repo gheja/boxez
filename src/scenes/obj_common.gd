@@ -86,7 +86,7 @@ func apply_color_to_part(a: Sprite2D, color: Color):
 	a.modulate = Lib.color3_add_clamp_special(a.modulate, color)
 
 func do_building_operation(building_name: String, secondary_offset: Vector2):
-	print(debug_name, ': single, ', building_name, ', ', secondary_offset)
+	# print(debug_name, ': single, ', building_name, ', ', secondary_offset)
 	
 	if resource_type == "paint":
 		if building_name == "merge":
@@ -95,7 +95,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		return
 	
 	if skip_next_collision:
-		print('  skip collision!')
+		# print('  skip collision!')
 		skip_next_collision = false
 		return
 	
@@ -139,14 +139,14 @@ func do_building_dual_operation(operation: String, other: CharacterBody2D):
 	var left = self
 	var right = other
 	
-	print(debug_name, ': dual, ', operation, ',', left, ',', right)
+	# print(debug_name, ': dual, ', operation, ',', left, ',', right)
 	
 	if operation == "merge":
 		# when mixed, make sure that the left object is the "object"
 		if left.resource_type == "paint" and right.resource_type == "object":
 			var tmp
 			
-			print('  swap: ', left.debug_name, ', ', right.debug_name)
+			# print('  swap: ', left.debug_name, ', ', right.debug_name)
 			
 			# swap positions
 			tmp = left.global_position
