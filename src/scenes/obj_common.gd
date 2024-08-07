@@ -122,7 +122,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		clear_sprite_parameters($Visuals/Parts/BottomLeftSprite)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
-	elif building_name == "stack":
+	elif building_name == "merge" or building_name == "stack":
 		self.held_at_building = true
 
 func do_building_dual_operation(operation: String, other: CharacterBody2D):
