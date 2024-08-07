@@ -9,4 +9,4 @@
 [node name="Level1" parent="LevelContainer" instance=ExtResource("1_inm4w")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(95, 32)
+position = Vector2(159, 32)
