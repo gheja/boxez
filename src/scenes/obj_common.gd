@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export_enum("object", "paint") var resource_type = "object"
+
 var belt_velocity = Vector2.ZERO
 var n = 0
 var skip_next_collision = false
@@ -75,6 +77,9 @@ func copy_all_sprite_parameters(a: Node2D, b: Node2D):
 func do_building_operation(building_name: String, secondary_offset: Vector2):
 	print(building_name, ', ', secondary_offset)
 	
+	if resource_type == "paint":
+		return
+	
 	if skip_next_collision:
 		print('  skip collision!')
 		skip_next_collision = false
@@ -115,3 +120,6 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		clear_sprite_parameters($Visuals/Parts/BottomLeftSprite)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
+
+func set_paint_color(color: Color):
+	$Visuals/Parts/PaintSprite.modulate = color

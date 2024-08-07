@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d16lbv612q3hl"]
 
 [ext_resource type="Texture2D" uid="uid://dye4ubmolbe14" path="res://assets/tiles.png" id="1_5md4c"]
-[ext_resource type="Script" path="res://scenes/obj_object.gd" id="1_bawob"]
+[ext_resource type="Script" path="res://scenes/obj_common.gd" id="1_d8fbu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w3hyy"]
 radius = 0.5
@@ -10,7 +10,7 @@ radius = 0.5
 size = Vector2(6, 6)
 
 [node name="ObjObject" type="CharacterBody2D"]
-script = ExtResource("1_bawob")
+script = ExtResource("1_d8fbu")
 
 [node name="Visuals" type="Node2D" parent="."]
 
