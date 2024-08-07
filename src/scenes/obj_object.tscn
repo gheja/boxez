@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d16lbv612q3hl"]
+[gd_scene load_steps=5 format=3 uid="uid://d16lbv612q3hl"]
 
 [ext_resource type="Texture2D" uid="uid://dye4ubmolbe14" path="res://assets/tiles.png" id="1_5md4c"]
 [ext_resource type="Script" path="res://scenes/obj_object.gd" id="1_bawob"]
@@ -6,7 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_w3hyy"]
 radius = 0.5
 
-[node name="ObjObject" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie78o"]
+size = Vector2(6, 6)
+
+[node name="ObjObject" type="CharacterBody2D"]
 script = ExtResource("1_bawob")
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -53,3 +56,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_w3hyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ie78o")

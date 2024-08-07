@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 var belt_velocity = Vector2.ZERO
 var n = 0
@@ -53,9 +53,9 @@ func handle_belt(a: TileMap, cell_coord: Vector2i):
 	elif belt_velocity.y < 0:
 		v.y = -1
 	
-	self.position += v
-	
-	belt_velocity -= v
+	if not self.test_move(self.transform, v):
+		self.position += v
+		belt_velocity -= v
 
 func copy_sprite_parameters(a: Sprite2D, b: Sprite2D):
 	# b.texture = a.texture
