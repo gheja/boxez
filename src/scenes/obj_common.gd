@@ -78,10 +78,16 @@ func copy_all_sprite_parameters(a: Node2D, b: Node2D, copy_only_visible: bool = 
 	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, copy_only_visible)
 	copy_sprite_parameters(a.get_node("Visuals/Parts/TopRightSprite") as Sprite2D,    b.get_node("Visuals/Parts/TopRightSprite") as Sprite2D,    copy_only_visible)
 
+func apply_color_to_part(a: Sprite2D, color: Color):
+	a.modulate = Lib.color3_add_clamp_special(a.modulate, color)
+
 func do_building_operation(building_name: String, secondary_offset: Vector2):
 	# print(building_name, ', ', secondary_offset)
 	
 	if resource_type == "paint":
+		if building_name == "merge":
+			self.held_at_building = true
+		
 		return
 	
 	if skip_next_collision:
@@ -126,10 +132,31 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		self.held_at_building = true
 
 func do_building_dual_operation(operation: String, other: CharacterBody2D):
-	print(operation, ',', other)
+	var left = self
+	var right = other
+	
+	print(operation, ',', left, ',', right)
 	
 	if operation == "merge":
-		if self.resource_type == "object" and other.resource_type == "object":
+		# when mixed, make sure that the left object is the "object"
+		if left.resource_type == "paint" and right.resource_type == "object":
+			var tmp
+			
+			# swap positions
+			tmp = left.global_position
+			left.global_position = right.global_position
+			right.global_position = tmp
+			
+			# because of the position swapping the areas will collide
+			left.skip_next_collision = true
+			right.skip_next_collision = true
+			
+			# swap the "pointers"
+			tmp = left
+			left = right
+			right = tmp
+			
+		if left.resource_type == "object" and right.resource_type == "object":
 			# TODO: this will get all visible parts from the right object and copy to
 			# the left object without checking if there is collision
 			
@@ -137,10 +164,23 @@ func do_building_dual_operation(operation: String, other: CharacterBody2D):
 			# the right object. the copy_...() functions have source and destination
 			# order in the function call (which is the opposite)
 			
-			copy_all_sprite_parameters(other, self, true)
+			copy_all_sprite_parameters(right, left, true)
+			
+		elif left.resource_type == "object" and right.resource_type == "paint":
+			var color = right.get_paint_color()
+			apply_color_to_part(left.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D, color)
+			apply_color_to_part(left.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D, color)
+			apply_color_to_part(left.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, color)
+			apply_color_to_part(left.get_node("Visuals/Parts/TopRightSprite") as Sprite2D, color)
+			
+		elif left.resource_type == "paint" and right.resource_type == "paint":
+			left.set_paint_color(Lib.color3_add_clamp(left.get_paint_color(), right.get_paint_color()))
 	
-	other.queue_free()
-	self.held_at_building = false
+	right.queue_free()
+	left.held_at_building = false
 	
 func set_paint_color(color: Color):
 	$Visuals/Parts/PaintSprite.modulate = color
+
+func get_paint_color():
+	return $Visuals/Parts/PaintSprite.modulate
