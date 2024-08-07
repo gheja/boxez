@@ -3,9 +3,9 @@ extends CharacterBody2D
 @export_enum("object", "paint") var resource_type = "object"
 
 var belt_velocity = Vector2.ZERO
-var skip_next_collision = false
 var held_at_building = false
 var debug_name = "?"
+var is_currenty_in_building = false
 
 func _ready():
 	debug_name = "obj-" + str(Lib.get_unique_index())
@@ -94,11 +94,6 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		
 		return
 	
-	if skip_next_collision:
-		# print('  skip collision!')
-		skip_next_collision = false
-		return
-	
 	if building_name == "rotate":
 		var tmp = Sprite2D.new()
 		copy_sprite_parameters($Visuals/Parts/BottomLeftSprite, tmp)
@@ -108,7 +103,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		copy_sprite_parameters(tmp, $Visuals/Parts/TopLeftSprite)
 	elif building_name == "split_vertical":
 		var other = load("res://scenes/obj_object.tscn").instantiate()
-		other.skip_next_collision = true
+		other.is_currenty_in_building = true
 		other.global_position += self.global_position + secondary_offset
 		copy_all_sprite_parameters(self, other)
 		self.call_deferred("add_sibling", other)
@@ -121,7 +116,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		clear_sprite_parameters(other.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D)
 	elif building_name == "split_horizontal":
 		var other = load("res://scenes/obj_object.tscn").instantiate()
-		other.skip_next_collision = true
+		other.is_currenty_in_building = true
 		other.global_position += self.global_position + secondary_offset
 		copy_all_sprite_parameters(self, other)
 		self.call_deferred("add_sibling", other)
@@ -152,10 +147,6 @@ func do_building_dual_operation(operation: String, other: CharacterBody2D):
 			tmp = left.global_position
 			left.global_position = right.global_position
 			right.global_position = tmp
-			
-			# because of the position swapping the areas will collide
-			left.skip_next_collision = true
-			right.skip_next_collision = true
 			
 			# swap the "pointers"
 			tmp = left

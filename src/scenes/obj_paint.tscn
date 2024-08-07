@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dye4ubmolbe14" path="res://assets/tiles.png" id="1_5va27"]
 [ext_resource type="Script" path="res://scenes/obj_common.gd" id="1_xtemv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ewkpt"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftp6h"]
 radius = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dct0o"]
@@ -29,7 +29,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_ewkpt")
+shape = SubResource("CircleShape2D_ftp6h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_dct0o")

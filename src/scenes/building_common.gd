@@ -37,6 +37,14 @@ func _on_left_area_area_entered(area: Area2D):
 		assert(false)
 		return
 	
+	print('left entered by ', tmp.debug_name)
+	
+	# to make sure we won't double-process it...
+	if tmp.is_currenty_in_building:
+		return
+	
+	tmp.is_currenty_in_building = true
+	
 	last_object_left = tmp
 	area_entered(tmp, $RightArea/CollisionShape2D_2.global_position - $LeftArea/CollisionShape2D_1.global_position)
 	handle_dual_input()
@@ -49,6 +57,30 @@ func _on_right_area_area_entered(area: Area2D):
 		assert(false)
 		return
 	
+	print('right entered by ', tmp.debug_name)
+	
+	# to make sure we won't double-process it...
+	if tmp.is_currenty_in_building:
+		return
+	
+	tmp.is_currenty_in_building = true
+	
 	last_object_right = tmp
 	area_entered(tmp, $LeftArea/CollisionShape2D_1.global_position - $RightArea/CollisionShape2D_2.global_position)
 	handle_dual_input()
+
+func _on_building_area_area_exited(area):
+	var tmp = get_obj_object(area)
+	
+	if not tmp:
+		print("what exited?")
+		assert(false)
+		return
+	
+	tmp.is_currenty_in_building = false
+	
+	if last_object_left == tmp:
+		last_object_left = null
+	
+	if last_object_right == tmp:
+		last_object_right = null
