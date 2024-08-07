@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://xocuphihsu7u"]
 
 [ext_resource type="TileSet" uid="uid://bh5gmp57hcuuq" path="res://tilesets/tileset_1.tres" id="1_qc85v"]
-[ext_resource type="PackedScene" uid="uid://d16lbv612q3hl" path="res://scenes/obj_object.tscn" id="2_llnqx"]
 [ext_resource type="PackedScene" uid="uid://c575qb6htwcn2" path="res://scenes/building_rotate.tscn" id="3_hwfe1"]
 [ext_resource type="PackedScene" uid="uid://cyb5mci11qds1" path="res://scenes/building_split_horizontal.tscn" id="4_rly77"]
+[ext_resource type="PackedScene" uid="uid://co65uhjbh413l" path="res://scenes/building_miner.tscn" id="5_bbxx6"]
 [ext_resource type="PackedScene" uid="uid://b0vixmukwv5gc" path="res://scenes/building_split_vertical.tscn" id="5_sefvm"]
 
 [node name="Level1" type="Node2D" groups=["levels"]]
@@ -16,22 +16,24 @@ layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 131073, 0, 2, 1, 0, 3, 327681, 
 layer_1/name = "Belts"
 layer_1/tile_data = PackedInt32Array(458753, 1, 1610612737, 393217, 1, 1610612737, 327681, 1, 1610612737, 262145, 1, 1610612737, 196609, 1, 1610612737, 131073, 1, 1610612737, 65537, 1, 1610612737, 458755, 1, 1610612737, 393219, 1, 1610612737, 327683, 1, 1610612737, 262147, 1, 1610612737, 196611, 1, 1610612737, 131075, 1, 1610612737, 65539, 1, 1610612737, 262148, 1, 1610612737, 196612, 1, 1610612737, 131076, 1, 1610612737, 65540, 1, 1610612737, 65543, 1, 1610612737, 131079, 1, 1610612737, 196615, 1, 1610612737, 262151, 1, 1610612737, 262150, 1, 1610612737, 196614, 1, 1610612737, 131078, 1, 1610612737, 65542, 1, 1610612737, 327686, 1, 1610612737, 393222, 1, 1610612737, 458758, 1, 1610612737)
 
-[node name="ObjectsContainer" type="Node2D" parent="."]
+[node name="ObjectsContainer" type="Node2D" parent="." groups=["objects_containers"]]
 
-[node name="ObjObject" parent="ObjectsContainer" instance=ExtResource("2_llnqx")]
-position = Vector2(12, 60)
+[node name="BuildingsContainer" type="Node2D" parent="."]
 
-[node name="ObjObject2" parent="ObjectsContainer" instance=ExtResource("2_llnqx")]
-position = Vector2(28, 60)
-
-[node name="ObjObject3" parent="ObjectsContainer" instance=ExtResource("2_llnqx")]
-position = Vector2(52, 60)
-
-[node name="BuildingRotate" parent="ObjectsContainer" instance=ExtResource("3_hwfe1")]
+[node name="BuildingRotate" parent="BuildingsContainer" instance=ExtResource("3_hwfe1")]
 position = Vector2(12, 36)
 
-[node name="BuildingSplitHorizontal" parent="ObjectsContainer" instance=ExtResource("4_rly77")]
+[node name="BuildingSplitHorizontal" parent="BuildingsContainer" instance=ExtResource("4_rly77")]
 position = Vector2(52, 36)
 
-[node name="BuildingSplitVertical" parent="ObjectsContainer" instance=ExtResource("5_sefvm")]
+[node name="BuildingSplitVertical" parent="BuildingsContainer" instance=ExtResource("5_sefvm")]
 position = Vector2(28, 36)
+
+[node name="BuildingMiner" parent="BuildingsContainer" instance=ExtResource("5_bbxx6")]
+position = Vector2(12, 60)
+
+[node name="BuildingMiner2" parent="BuildingsContainer" instance=ExtResource("5_bbxx6")]
+position = Vector2(28, 60)
+
+[node name="BuildingMiner3" parent="BuildingsContainer" instance=ExtResource("5_bbxx6")]
+position = Vector2(52, 60)
