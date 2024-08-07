@@ -2,6 +2,7 @@ extends Node2D
 
 var belt_velocity = Vector2.ZERO
 var n = 0
+var skip_next_collision = false
 
 func _process(_delta):
 	n += 1
@@ -52,3 +53,62 @@ func _process(_delta):
 	self.position += v
 	
 	belt_velocity -= v
+
+func copy_sprite_parameters(a: Sprite2D, b: Sprite2D):
+	# b.texture = a.texture
+	b.modulate = a.modulate
+	b.visible = a.visible
+
+func clear_sprite_parameters(a: Sprite2D):
+	a.modulate = Color(1, 1, 1)
+	a.visible = false
+
+func copy_all_sprite_parameters(a: Node2D, b: Node2D):
+	copy_sprite_parameters(a.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D, b.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/TopRightSprite") as Sprite2D, b.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
+
+func do_building_operation(building_name: String, secondary_offset: Vector2):
+	print(building_name, ', ', secondary_offset)
+	
+	if skip_next_collision:
+		print('  skip collision!')
+		skip_next_collision = false
+		return
+	
+	if building_name == "rotate":
+		var tmp = Sprite2D.new()
+		copy_sprite_parameters($Visuals/Parts/BottomLeftSprite, tmp)
+		copy_sprite_parameters($Visuals/Parts/BottomRightSprite, $Visuals/Parts/BottomLeftSprite)
+		copy_sprite_parameters($Visuals/Parts/TopRightSprite, $Visuals/Parts/BottomRightSprite)
+		copy_sprite_parameters($Visuals/Parts/TopLeftSprite, $Visuals/Parts/TopRightSprite)
+		copy_sprite_parameters(tmp, $Visuals/Parts/TopLeftSprite)
+	elif building_name == "split_vertical":
+		var other = load("res://scenes/obj_object.tscn").instantiate()
+		other.n = self.n
+		other.skip_next_collision = true
+		other.global_position += self.global_position + secondary_offset
+		copy_all_sprite_parameters(self, other)
+		self.add_sibling(other)
+		
+		# TODO: always assumes that obj entered on the left
+		
+		clear_sprite_parameters($Visuals/Parts/BottomRightSprite)
+		clear_sprite_parameters($Visuals/Parts/TopRightSprite)
+		clear_sprite_parameters(other.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
+		clear_sprite_parameters(other.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D)
+	elif building_name == "split_horizontal":
+		var other = load("res://scenes/obj_object.tscn").instantiate()
+		other.n = self.n
+		other.skip_next_collision = true
+		other.global_position += self.global_position + secondary_offset
+		copy_all_sprite_parameters(self, other)
+		self.add_sibling(other)
+		
+		# TODO: always assumes that obj entered on the left
+		
+		clear_sprite_parameters($Visuals/Parts/BottomRightSprite)
+		clear_sprite_parameters($Visuals/Parts/BottomLeftSprite)
+		clear_sprite_parameters(other.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
+		clear_sprite_parameters(other.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
