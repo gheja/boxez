@@ -16,13 +16,16 @@ func _process(_delta):
 	var tile = a.get_cell_tile_data(1, cell_coord)
 	
 	if not tile:
+		# no belt below? *poof*
+		self.queue_free()
 		return
 	
-	if tile.get_custom_data("t_type") != "belt":
-		return
-	
-	var alt_id = a.get_cell_alternative_tile(1, cell_coord)
+	if tile.get_custom_data("t_type") == "belt":
+		handle_belt(a, cell_coord)
 
+func handle_belt(a: TileMap, cell_coord: Vector2i):
+	var alt_id = a.get_cell_alternative_tile(1, cell_coord)
+	
 	var flip_v = alt_id & TileSetAtlasSource.TRANSFORM_FLIP_V > 0
 	var flip_h = alt_id & TileSetAtlasSource.TRANSFORM_FLIP_H > 0
 	var rotated = alt_id & TileSetAtlasSource.TRANSFORM_TRANSPOSE > 0
