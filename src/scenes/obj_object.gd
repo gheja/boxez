@@ -93,7 +93,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		other.skip_next_collision = true
 		other.global_position += self.global_position + secondary_offset
 		copy_all_sprite_parameters(self, other)
-		self.add_sibling(other)
+		self.call_deferred("add_sibling", other)
 		
 		# TODO: always assumes that obj entered on the left
 		
@@ -107,7 +107,7 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		other.skip_next_collision = true
 		other.global_position += self.global_position + secondary_offset
 		copy_all_sprite_parameters(self, other)
-		self.add_sibling(other)
+		self.call_deferred("add_sibling", other)
 		
 		# TODO: always assumes that obj entered on the left
 		
