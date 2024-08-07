@@ -40,3 +40,10 @@ func color3_add_clamp_special(a: Color, b: Color):
 		# a.a = 1.0
 	
 	return Color(clamp(a.r + b.r, 0.0, 1.0), clamp(a.g + b.g, 0.0, 1.0), clamp(a.b + b.b, 0.0, 1.0), a.a)
+
+# for some debug purposes
+var _unique_index = 0
+
+func get_unique_index():
+	_unique_index += 1
+	return _unique_index
