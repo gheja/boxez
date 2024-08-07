@@ -37,7 +37,7 @@ func _on_left_area_area_entered(area: Area2D):
 		assert(false)
 		return
 	
-	print('left entered by ', tmp.debug_name)
+	# print('left entered by ', tmp.debug_name)
 	
 	# to make sure we won't double-process it...
 	if tmp.is_currenty_in_building:
@@ -57,7 +57,7 @@ func _on_right_area_area_entered(area: Area2D):
 		assert(false)
 		return
 	
-	print('right entered by ', tmp.debug_name)
+	# print('right entered by ', tmp.debug_name)
 	
 	# to make sure we won't double-process it...
 	if tmp.is_currenty_in_building:

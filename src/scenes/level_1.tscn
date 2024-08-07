@@ -21,7 +21,6 @@ layer_1/tile_data = PackedInt32Array(458753, 1, 1610612737, 327681, 1, 161061273
 [node name="ObjectsContainer" type="Node2D" parent="." groups=["objects_containers"]]
 
 [node name="BuildingsContainer" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.501961)
 
 [node name="BuildingRotate" parent="BuildingsContainer" instance=ExtResource("3_hwfe1")]
 position = Vector2(12, 44)
