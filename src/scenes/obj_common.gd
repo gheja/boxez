@@ -4,9 +4,13 @@ extends CharacterBody2D
 
 var belt_velocity = Vector2.ZERO
 var skip_next_collision = false
+var held_at_building = false
 
 func _process(_delta):
 	if not Lib.belt_step_sync():
+		return
+	
+	if held_at_building:
 		return
 	
 	var a = Lib.get_first_group_member("main_tilemaps") as TileMap
@@ -56,7 +60,10 @@ func handle_belt(a: TileMap, cell_coord: Vector2i):
 		self.position += v
 		belt_velocity -= v
 
-func copy_sprite_parameters(a: Sprite2D, b: Sprite2D):
+func copy_sprite_parameters(a: Sprite2D, b: Sprite2D, copy_only_visible: bool = false):
+	if copy_only_visible and not a.visible:
+		return
+	
 	# b.texture = a.texture
 	b.modulate = a.modulate
 	b.visible = a.visible
@@ -65,20 +72,20 @@ func clear_sprite_parameters(a: Sprite2D):
 	a.modulate = Color(1, 1, 1)
 	a.visible = false
 
-func copy_all_sprite_parameters(a: Node2D, b: Node2D):
-	copy_sprite_parameters(a.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D, b.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
-	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D)
-	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D)
-	copy_sprite_parameters(a.get_node("Visuals/Parts/TopRightSprite") as Sprite2D, b.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
+func copy_all_sprite_parameters(a: Node2D, b: Node2D, copy_only_visible: bool = false):
+	copy_sprite_parameters(a.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D,     b.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D,     copy_only_visible)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D,  b.get_node("Visuals/Parts/BottomLeftSprite") as Sprite2D,  copy_only_visible)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, b.get_node("Visuals/Parts/BottomRightSprite") as Sprite2D, copy_only_visible)
+	copy_sprite_parameters(a.get_node("Visuals/Parts/TopRightSprite") as Sprite2D,    b.get_node("Visuals/Parts/TopRightSprite") as Sprite2D,    copy_only_visible)
 
 func do_building_operation(building_name: String, secondary_offset: Vector2):
-	print(building_name, ', ', secondary_offset)
+	# print(building_name, ', ', secondary_offset)
 	
 	if resource_type == "paint":
 		return
 	
 	if skip_next_collision:
-		print('  skip collision!')
+		# print('  skip collision!')
 		skip_next_collision = false
 		return
 	
@@ -115,6 +122,25 @@ func do_building_operation(building_name: String, secondary_offset: Vector2):
 		clear_sprite_parameters($Visuals/Parts/BottomLeftSprite)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopRightSprite") as Sprite2D)
 		clear_sprite_parameters(other.get_node("Visuals/Parts/TopLeftSprite") as Sprite2D)
+	elif building_name == "stack":
+		self.held_at_building = true
 
+func do_building_dual_operation(operation: String, other: CharacterBody2D):
+	print(operation, ',', other)
+	
+	if operation == "merge":
+		if self.resource_type == "object" and other.resource_type == "object":
+			# TODO: this will get all visible parts from the right object and copy to
+			# the left object without checking if there is collision
+			
+			# NOTE: the merger updates the left object and keeps that, then destroys
+			# the right object. the copy_...() functions have source and destination
+			# order in the function call (which is the opposite)
+			
+			copy_all_sprite_parameters(other, self, true)
+	
+	other.queue_free()
+	self.held_at_building = false
+	
 func set_paint_color(color: Color):
 	$Visuals/Parts/PaintSprite.modulate = color
