@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main_overlay.gd" id="1_3rwak"]
 
-[node name="MainOverlay" type="Control"]
+[node name="MainOverlay" type="Control" groups=["main_overlays"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

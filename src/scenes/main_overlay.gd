@@ -22,3 +22,7 @@ func _process(delta):
 	elif pos.y > 64 - SCROLL_EDGE_SIZE:
 		scroll_direction.y = +1
 
+func pop_up_message(message):
+	var tmp = load("res://scenes/message_overlay.tscn").instantiate()
+	tmp.pop_up_message(message)
+	self.add_child(tmp)
