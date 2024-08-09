@@ -58,4 +58,4 @@ func _ready():
 func on_goal_completed(level_index: int):
 	remove_unlocked_objects(level_index)
 	unlock_level(level_index)
-	Lib.get_first_group_member("main_overlays").pop_up_message("New area unlocked")
+	Lib.get_first_group_member("main_overlays").pop_up_message("[center]New area unlocked[/center]")
