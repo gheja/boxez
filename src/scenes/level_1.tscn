@@ -117,7 +117,7 @@ position = Vector2(92, 44)
 position = Vector2(108, 44)
 
 [node name="BuildingMerge6" parent="BuildingsContainer" instance=ExtResource("7_hm2ki")]
-position = Vector2(164, 36)
+position = Vector2(164, 44)
 rotation = -3.14159
 
 [node name="BuildingMerge8" parent="BuildingsContainer" instance=ExtResource("7_hm2ki")]
