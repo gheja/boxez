@@ -47,3 +47,16 @@ var _unique_index = 0
 func get_unique_index():
 	_unique_index += 1
 	return _unique_index
+
+func _get_part_description(part: Sprite2D):
+	return str(part.frame) + "-" + str(part.modulate.r8) + "-" + str(part.modulate.g8) + "-" + str(part.modulate.b8)
+
+func get_obj_object_description(parts: Node2D):
+	var s
+	s = ""
+	s += _get_part_description(parts.get_node("TopLeftSprite")) + ","
+	s += _get_part_description(parts.get_node("BottomLeftSprite")) + ","
+	s += _get_part_description(parts.get_node("BottomRightSprite")) + ","
+	s += _get_part_description(parts.get_node("TopRightSprite"))
+	
+	return s
