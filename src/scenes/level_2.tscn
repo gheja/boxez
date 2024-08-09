@@ -29,7 +29,7 @@ rotation = 1.57079
 position = Vector2(44, 20)
 
 [node name="LevelLockTileMap" type="TileMap" parent="."]
-modulate = Color(1, 1, 1, 0.745098)
+modulate = Color(1, 1, 1, 0.752941)
 tile_set = ExtResource("9_75ali")
 format = 2
 layer_0/name = "LevelLock"

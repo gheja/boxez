@@ -46,4 +46,9 @@ func _ready():
 	# remove_unlocked_objects(1)
 	unlock_level(1)
 	level_lock_tilemap.modulate = Color.WHITE
+	
+	# level lock
+	level_lock_tilemap.set_layer_enabled(0, true)
+	
+	# keep on start
 	level_lock_tilemap.set_layer_enabled(1, false)
