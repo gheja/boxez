@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var level_index_to_unlock: int = 0
+
 var completed = false
 
 func get_obj_object(object_area: Area2D):
@@ -27,4 +29,5 @@ func _on_left_area_area_entered(area):
 	if Lib.get_obj_object_description($Visuals/Parts) == Lib.get_obj_object_description(tmp.get_node("Visuals/Parts")):
 		completed = true
 		$Visuals/Sprite2D.frame += 1
+		Signals.emit_signal("goal_completed", level_index_to_unlock)
 

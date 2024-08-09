@@ -52,3 +52,9 @@ func _ready():
 	
 	# keep on start
 	level_lock_tilemap.set_layer_enabled(1, false)
+	
+	Signals.connect("goal_completed", on_goal_completed)
+
+func on_goal_completed(level_index: int):
+	remove_unlocked_objects(level_index)
+	unlock_level(level_index)
