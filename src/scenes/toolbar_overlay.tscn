@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://ceuje3bd1cqav"]
+
+[ext_resource type="Theme" uid="uid://c5kdo4nq87ox5" path="res://themes/new_theme.tres" id="1_74p77"]
+[ext_resource type="Texture2D" uid="uid://ctovwbaupqibc" path="res://assets/graphics/button_belt.png" id="1_vweky"]
+[ext_resource type="Script" path="res://scenes/toolbar_overlay.gd" id="2_6h8mm"]
+[ext_resource type="Texture2D" uid="uid://18yyqu114sty" path="res://assets/graphics/button_rotate.png" id="2_v7fgs"]
+[ext_resource type="Texture2D" uid="uid://bthbx588gccnp" path="res://assets/graphics/button_split_vertical.png" id="3_h2jqd"]
+[ext_resource type="Texture2D" uid="uid://clt7q4ujoifr3" path="res://assets/graphics/button_split_horizontal.png" id="4_8vw3a"]
+[ext_resource type="Texture2D" uid="uid://cqjj3v6eflj7r" path="res://assets/graphics/button_delete.png" id="5_jnjsb"]
+[ext_resource type="Texture2D" uid="uid://c2ayuycbu8nos" path="res://assets/graphics/button_merge.png" id="6_my4dn"]
+
+[node name="ToolbarOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_74p77")
+script = ExtResource("2_6h8mm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -11.0
+offset_right = 2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonBelt" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("1_vweky")
+metadata/building_type = "belt"
+
+[node name="ButtonRotate" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_v7fgs")
+metadata/building_type = "rotate"
+
+[node name="ButtonSplitVertical" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("3_h2jqd")
+metadata/building_type = "split_vertical"
+
+[node name="ButtonSplitHorizontal" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("4_8vw3a")
+metadata/building_type = "split_horizontal"
+
+[node name="ButtonMerge" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_my4dn")
+metadata/building_type = "merge"
+
+[node name="ButtonDestroy" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("5_jnjsb")
+metadata/building_type = "destroy"
+
+[node name="ButtonHelpText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 43.0
+offset_right = 65.0
+offset_bottom = 54.0
+text = "Rotate"
+
+[connection signal="mouse_entered" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonBelt" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonRotate" to="." method="_on_button_rotate_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonRotate" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonRotate" to="." method="_on_button_rotate_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonSplitVertical" to="." method="_on_button_split_vertical_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonSplitVertical" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonSplitVertical" to="." method="_on_button_split_vertical_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonSplitHorizontal" to="." method="_on_button_split_horizontal_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonSplitHorizontal" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonSplitHorizontal" to="." method="_on_button_split_horizontal_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonMerge" to="." method="_on_button_merge_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonMerge" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonMerge" to="." method="_on_button_merge_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonDestroy" to="." method="_on_button_destroy_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonDestroy" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonDestroy" to="." method="_on_button_destroy_pressed"]

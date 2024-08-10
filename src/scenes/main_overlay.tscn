@@ -1,12 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://b75gicodfb7nn"]
+[gd_scene load_steps=3 format=3 uid="uid://b75gicodfb7nn"]
 
 [ext_resource type="Script" path="res://scenes/main_overlay.gd" id="1_3rwak"]
+[ext_resource type="PackedScene" uid="uid://ceuje3bd1cqav" path="res://scenes/toolbar_overlay.tscn" id="2_h5bec"]
 
 [node name="MainOverlay" type="Control" groups=["main_overlays"]]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_3rwak")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ToolbarOverlay" parent="CanvasLayer" instance=ExtResource("2_h5bec")]
+
+[node name="Control123" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

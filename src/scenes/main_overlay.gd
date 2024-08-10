@@ -8,7 +8,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	var pos = get_local_mouse_position()
+	var pos = $CanvasLayer/Control123.get_local_mouse_position()
 	
 	scroll_direction = Vector2.ZERO
 	
@@ -25,4 +25,4 @@ func _process(delta):
 func pop_up_message(message):
 	var tmp = load("res://scenes/message_overlay.tscn").instantiate()
 	tmp.pop_up_message(message)
-	self.add_child(tmp)
+	$CanvasLayer.add_child(tmp)
