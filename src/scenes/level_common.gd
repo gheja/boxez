@@ -19,6 +19,16 @@ func is_cell_locked(cell_coord: Vector2i):
 	
 	return true
 
+func is_cell_editable(cell_coord: Vector2i):
+	if is_cell_locked(cell_coord):
+		return false
+	
+	# if tilemap.get_cell_tile_data(1, cell_coord)
+	return true
+
+func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
+	print(cell_coord, ", ", tool, ", ", rotation)
+
 func remove_unlocked_objects(level_index: int):
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
 		var cell = level_lock_tilemap.get_cell_tile_data(0, cell_coord)

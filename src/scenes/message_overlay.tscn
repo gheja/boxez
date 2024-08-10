@@ -86,6 +86,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_s3ixs")
 script = ExtResource("2_iirc0")
 
@@ -93,18 +94,21 @@ script = ExtResource("2_iirc0")
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="Visuals"]
 layout_mode = 0
 offset_top = -9.0
 offset_right = 64.0
 offset_bottom = 78.0
+mouse_filter = 1
 color = Color(0, 0, 0, 0.376471)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Visuals"]
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
+mouse_filter = 1
 bbcode_enabled = true
 text = "New area unlocked"
 fit_content = true

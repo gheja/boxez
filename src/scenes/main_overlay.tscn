@@ -10,10 +10,11 @@ script = ExtResource("1_3rwak")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ToolbarOverlay" parent="CanvasLayer" instance=ExtResource("2_h5bec")]
-
 [node name="Control123" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="ToolbarOverlay" parent="CanvasLayer" instance=ExtResource("2_h5bec")]

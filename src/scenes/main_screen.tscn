@@ -11,7 +11,7 @@ script = ExtResource("1_otlhx")
 
 [node name="Level2" parent="LevelContainer" instance=ExtResource("2_2jvtm")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["cameras"]]
 position = Vector2(32, 32)
 
 [node name="MainOverlay" parent="." instance=ExtResource("2_p4hej")]

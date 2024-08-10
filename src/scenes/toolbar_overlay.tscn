@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ceuje3bd1cqav"]
+[gd_scene load_steps=15 format=3 uid="uid://ceuje3bd1cqav"]
 
 [ext_resource type="Theme" uid="uid://c5kdo4nq87ox5" path="res://themes/new_theme.tres" id="1_74p77"]
 [ext_resource type="Texture2D" uid="uid://ctovwbaupqibc" path="res://assets/graphics/button_belt.png" id="1_vweky"]
@@ -8,6 +8,27 @@
 [ext_resource type="Texture2D" uid="uid://clt7q4ujoifr3" path="res://assets/graphics/button_split_horizontal.png" id="4_8vw3a"]
 [ext_resource type="Texture2D" uid="uid://cqjj3v6eflj7r" path="res://assets/graphics/button_delete.png" id="5_jnjsb"]
 [ext_resource type="Texture2D" uid="uid://c2ayuycbu8nos" path="res://assets/graphics/button_merge.png" id="6_my4dn"]
+[ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="9_qejto"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uuls"]
+atlas = ExtResource("9_qejto")
+region = Rect2(0, 84, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kabi"]
+atlas = ExtResource("9_qejto")
+region = Rect2(0, 96, 24, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvjxw"]
+atlas = ExtResource("9_qejto")
+region = Rect2(0, 108, 24, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6fop"]
+atlas = ExtResource("9_qejto")
+region = Rect2(0, 120, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53soq"]
+atlas = ExtResource("9_qejto")
+region = Rect2(0, 132, 12, 12)
 
 [node name="ToolbarOverlay" type="Control"]
 layout_mode = 3
@@ -18,6 +39,65 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_74p77")
 script = ExtResource("2_6h8mm")
+
+[node name="CursorStuffs" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 25.0
+offset_bottom = 18.0
+mouse_filter = 1
+
+[node name="BuildingOutlines" type="Control" parent="CursorStuffs"]
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -11.0
+offset_right = 10.0
+offset_bottom = 12.0
+mouse_filter = 1
+
+[node name="Building1" type="TextureRect" parent="CursorStuffs/BuildingOutlines"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 18.0
+offset_bottom = 17.0
+texture = SubResource("AtlasTexture_8uuls")
+
+[node name="Building2" type="TextureRect" parent="CursorStuffs/BuildingOutlines"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 30.0
+offset_bottom = 17.0
+texture = SubResource("AtlasTexture_3kabi")
+
+[node name="Building3" type="TextureRect" parent="CursorStuffs/BuildingOutlines"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 30.0
+offset_bottom = 17.0
+texture = SubResource("AtlasTexture_mvjxw")
+
+[node name="BuildingBelt" type="TextureRect" parent="CursorStuffs/BuildingOutlines"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 18.0
+offset_bottom = 17.0
+texture = SubResource("AtlasTexture_j6fop")
+
+[node name="BuildingDestroy" type="TextureRect" parent="CursorStuffs/BuildingOutlines"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 18.0
+offset_bottom = 17.0
+texture = SubResource("AtlasTexture_53soq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -74,8 +154,10 @@ offset_left = 1.0
 offset_top = 43.0
 offset_right = 65.0
 offset_bottom = 54.0
+mouse_filter = 1
 text = "Rotate"
 
+[connection signal="gui_input" from="CursorStuffs/BuildingOutlines" to="." method="_on_building_outlines_gui_input"]
 [connection signal="mouse_entered" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/ButtonBelt" to="." method="_on_button_common_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_pressed"]
