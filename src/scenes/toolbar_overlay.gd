@@ -3,6 +3,7 @@ extends Control
 var level
 var camera
 var active_tool = "none"
+var active_tool_rotation = 0
 var cursor_position
 var cursor_cell_coord
 
@@ -19,15 +20,17 @@ func update_cursor():
 	cursor_cell_coord = get_cell_coord(get_global_mouse_position() + camera.global_position - Vector2(32, 32)) 
 	cursor_position = cursor_cell_coord * Vector2(8, 8) + Vector2(4, 4)
 	
-	if level.is_cell_editable(cursor_cell_coord):
+	# if level.is_cell_editable(cursor_cell_coord):
+	if level.is_tool_usable_on_cell(cursor_cell_coord, active_tool, active_tool_rotation):
 		$CursorStuffs/BuildingOutlines.modulate = Color(1, 1, 1)
 	else:
 		$CursorStuffs/BuildingOutlines.modulate = Color(1, 0, 0)
 	
 	$CursorStuffs.global_position = cursor_position - camera.global_position + Vector2(32, 32)
+	$CursorStuffs.rotation_degrees = active_tool_rotation
 
 func use_tool():
-	level.use_tool(cursor_cell_coord, active_tool, $CursorStuffs.rotation_degrees)
+	level.use_tool(cursor_cell_coord, active_tool, active_tool_rotation)
 
 func _process(_delta):
 	update_cursor()
@@ -122,7 +125,7 @@ func _unhandled_input(event):
 			elif event.as_text_physical_keycode() == "Q":
 				set_active_tool("none")
 			elif event.as_text_physical_keycode() == "R":
-				$CursorStuffs.rotation_degrees += 90
+				active_tool_rotation += 90
 
 func _on_building_outlines_gui_input(event):
 	if event is InputEventMouseButton:

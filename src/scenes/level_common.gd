@@ -29,6 +29,20 @@ func is_cell_editable(cell_coord: Vector2i):
 	
 	return true
 
+func is_tool_usable_on_cell(cell_coord: Vector2i, tool: String, rotation: int):
+	if not is_cell_editable(cell_coord):
+		return false
+	
+	if tool == "split_vertical" or tool == "split_horizontal" or tool == "merge":
+		var left_position = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
+		var right_position = left_position + Vector2(8, 0).rotated(rotation)
+		var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
+		
+		if not is_cell_editable(right_cell_coord):
+			return false
+	
+	return true
+
 func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
 	var source_id = tilemap.get_cell_source_id(1, source_cell_coord)
 	var atlas_coord = tilemap.get_cell_atlas_coords(1, source_cell_coord)
@@ -63,7 +77,7 @@ func do_destroy(cell_coord: Vector2i):
 		
 		if building.is_dual_size:
 			var right_position = building.position + Vector2(8, 0).rotated(building.rotation)
-			var right_cell_coord = Vector2i((right_position.x - 4) / 8, (right_position.y - 4) / 8)
+			var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
 			
 			tilemap.set_cell(1, right_cell_coord, -1)
 		
@@ -79,13 +93,45 @@ func do_build_belt(cell_coord: Vector2i, rotation: int):
 	if rotation % 360 == 270:
 		copy_cell_params(tilemap, Vector2i(3, -2), cell_coord)
 
+func do_build_building(cell_coord: Vector2i, rotation: int, scene_name: String, variation: int):
+	var pos = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
+	
+	var scene_full_name = "res://scenes/building_" + scene_name + ".tscn"
+	var building = load(scene_full_name).instantiate()
+	building.global_position = pos
+	building.rotation_degrees = rotation
+	
+	# NOTE: the building sprites are poiting upwards, the belt sprite points
+	# to the right so we need to fix that here (also, negative rotation is not
+	# handled, so 270 degrees it is)
+	
+	do_destroy(cell_coord)
+	do_build_belt(cell_coord, rotation + 270)
+	
+	if building.is_dual_size:
+		var right_position = building.position + Vector2(8, 0).rotated(building.rotation)
+		var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
+		
+		do_destroy(right_cell_coord)
+		do_build_belt(right_cell_coord, rotation + 270)
+	
+	$BuildingsContainer.add_child(building)
+
 func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 	print(cell_coord, ", ", tool, ", ", rotation)
-	if not is_cell_editable(cell_coord):
+	if not is_tool_usable_on_cell(cell_coord, tool, rotation):
 		return
 	
 	if tool == "destroy":
 		do_destroy(cell_coord)
+	elif tool == "rotate":
+		do_build_building(cell_coord, rotation, "rotate", 0)
+	elif tool == "split_vertical":
+		do_build_building(cell_coord, rotation, "split_vertical", 0)
+	elif tool == "split_horizontal": # TODO: this should be a variant!!!
+		do_build_building(cell_coord, rotation, "split_horizontal", 0)
+	elif tool == "merge":
+		do_build_building(cell_coord, rotation, "merge", 0)
 	elif tool == "belt":
 		do_build_belt(cell_coord, rotation)
 
