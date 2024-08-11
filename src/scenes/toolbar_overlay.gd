@@ -2,7 +2,7 @@ extends Control
 
 var level
 var camera
-var active_tool = "invalid"
+var active_tool = "none"
 var cursor_position
 var cursor_cell_coord
 
@@ -10,6 +10,7 @@ func _ready():
 	clear_hint()
 	level = Lib.get_first_group_member("levels")
 	camera = Lib.get_first_group_member("cameras")
+	set_active_tool("none")
 
 func get_cell_coord(pos: Vector2):
 	return Vector2(round((pos.x - 4) / 8), round((pos.y - 4) / 8))
@@ -105,8 +106,23 @@ func _on_button_destroy_mouse_entered():
 
 func _unhandled_input(event):
 	if event is InputEventKey:
-		if event.as_text_physical_keycode() == "R" and event.pressed:
-			$CursorStuffs.rotation_degrees += 90
+		if event.pressed:
+			if event.as_text_physical_keycode() == "1":
+				set_active_tool("belt")
+			elif event.as_text_physical_keycode() == "2":
+				set_active_tool("rotate")
+			elif event.as_text_physical_keycode() == "3":
+				set_active_tool("split_vertical")
+			elif event.as_text_physical_keycode() == "4":
+				set_active_tool("split_horizontal")
+			elif event.as_text_physical_keycode() == "5":
+				set_active_tool("merge")
+			elif event.as_text_physical_keycode() == "0" or event.as_text_physical_keycode() == "`":
+				set_active_tool("destroy")
+			elif event.as_text_physical_keycode() == "Q":
+				set_active_tool("none")
+			elif event.as_text_physical_keycode() == "R":
+				$CursorStuffs.rotation_degrees += 90
 
 func _on_building_outlines_gui_input(event):
 	if event is InputEventMouseButton:

@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var operation = "invalid"
+@export var is_dual_size: bool = false
 
 var last_object_left: CharacterBody2D = null
 var last_object_right: CharacterBody2D = null

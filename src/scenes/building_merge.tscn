@@ -12,6 +12,7 @@ size = Vector2(14, 6)
 [node name="BuildingMerge" type="Node2D"]
 script = ExtResource("1_fdoc3")
 operation = "merge"
+is_dual_size = true
 
 [node name="Visuals" type="Node2D" parent="."]
 

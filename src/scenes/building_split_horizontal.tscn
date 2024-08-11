@@ -12,6 +12,7 @@ size = Vector2(14, 6)
 [node name="BuildingSplitHorizontal" type="Node2D"]
 script = ExtResource("1_aimcu")
 operation = "split_horizontal"
+is_dual_size = true
 
 [node name="Visuals" type="Node2D" parent="."]
 

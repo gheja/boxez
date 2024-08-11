@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var level_index_to_unlock: int = 0
+@export var is_dual_size: bool = false
+
 
 var completed = false
 

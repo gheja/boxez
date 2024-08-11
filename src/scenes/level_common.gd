@@ -28,6 +28,7 @@ func is_cell_editable(cell_coord: Vector2i):
 		return
 	
 	return true
+
 func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
 	var source_id = tilemap.get_cell_source_id(1, source_cell_coord)
 	var atlas_coord = tilemap.get_cell_atlas_coords(1, source_cell_coord)
@@ -35,8 +36,38 @@ func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
 	
 	tilemap.set_cell(1, dest_cell_coord, source_id, atlas_coord, alternative_tile)
 
+func get_building_on_cell(cell_coord: Vector2i):
+	var pos = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
+	
+	for obj in $BuildingsContainer.get_children():
+		if obj.position == pos:
+			return obj
+		
+		if obj.is_dual_size:
+			var right_position = obj.position + Vector2(8, 0).rotated(obj.rotation)
+			
+			if Lib.lazy_equal_vector2(right_position, pos):
+				return obj
+	
+	return null
+
 func do_destroy(cell_coord: Vector2i):
 	tilemap.set_cell(1, cell_coord, -1)
+	
+	var building = get_building_on_cell(cell_coord)
+	if building:
+		var left_position = building.position
+		var left_cell_coord = Vector2i((left_position.x - 4) / 8, (left_position.y - 4) / 8)
+		
+		tilemap.set_cell(1, left_cell_coord, -1)
+		
+		if building.is_dual_size:
+			var right_position = building.position + Vector2(8, 0).rotated(building.rotation)
+			var right_cell_coord = Vector2i((right_position.x - 4) / 8, (right_position.y - 4) / 8)
+			
+			tilemap.set_cell(1, right_cell_coord, -1)
+		
+		building.queue_free()
 
 func do_build_belt(cell_coord: Vector2i, rotation: int):
 	if rotation % 360 == 0:

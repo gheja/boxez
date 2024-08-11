@@ -60,3 +60,6 @@ func get_obj_object_description(parts: Node2D):
 	s += _get_part_description(parts.get_node("TopRightSprite"))
 	
 	return s
+
+func lazy_equal_vector2(a: Vector2, b: Vector2):
+	return abs(a.x - b.x) < 0.001 and abs(a.y - b.y) < 0.001
