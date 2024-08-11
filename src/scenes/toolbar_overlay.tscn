@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ceuje3bd1cqav"]
+[gd_scene load_steps=17 format=3 uid="uid://ceuje3bd1cqav"]
 
 [ext_resource type="Theme" uid="uid://c5kdo4nq87ox5" path="res://themes/new_theme.tres" id="1_74p77"]
 [ext_resource type="Texture2D" uid="uid://ctovwbaupqibc" path="res://assets/graphics/button_belt.png" id="1_vweky"]
 [ext_resource type="Script" path="res://scenes/toolbar_overlay.gd" id="2_6h8mm"]
 [ext_resource type="Texture2D" uid="uid://18yyqu114sty" path="res://assets/graphics/button_rotate.png" id="2_v7fgs"]
 [ext_resource type="Texture2D" uid="uid://bthbx588gccnp" path="res://assets/graphics/button_split_vertical.png" id="3_h2jqd"]
+[ext_resource type="Texture2D" uid="uid://ico1ojqjc20x" path="res://assets/graphics/buttons.png" id="4_3konl"]
 [ext_resource type="Texture2D" uid="uid://clt7q4ujoifr3" path="res://assets/graphics/button_split_horizontal.png" id="4_8vw3a"]
 [ext_resource type="Texture2D" uid="uid://cqjj3v6eflj7r" path="res://assets/graphics/button_delete.png" id="5_jnjsb"]
 [ext_resource type="Texture2D" uid="uid://c2ayuycbu8nos" path="res://assets/graphics/button_merge.png" id="6_my4dn"]
@@ -29,6 +30,10 @@ region = Rect2(0, 120, 12, 12)
 [sub_resource type="AtlasTexture" id="AtlasTexture_53soq"]
 atlas = ExtResource("9_qejto")
 region = Rect2(0, 132, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqbxh"]
+atlas = ExtResource("4_3konl")
+region = Rect2(56, 0, 8, 8)
 
 [node name="ToolbarOverlay" type="Control"]
 layout_mode = 3
@@ -112,6 +117,12 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="ButtonNone" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = SubResource("AtlasTexture_sqbxh")
+metadata/building_type = "none"
+
 [node name="ButtonBelt" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
@@ -158,6 +169,9 @@ mouse_filter = 1
 text = "Rotate"
 
 [connection signal="gui_input" from="CursorStuffs/BuildingOutlines" to="." method="_on_building_outlines_gui_input"]
+[connection signal="mouse_entered" from="HBoxContainer/ButtonNone" to="." method="_on_button_none_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/ButtonNone" to="." method="_on_button_common_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/ButtonNone" to="." method="_on_button_none_pressed"]
 [connection signal="mouse_entered" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/ButtonBelt" to="." method="_on_button_common_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/ButtonBelt" to="." method="_on_button_belt_pressed"]

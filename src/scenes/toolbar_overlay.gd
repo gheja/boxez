@@ -67,6 +67,11 @@ func set_active_tool(s: String):
 		$CursorStuffs/BuildingOutlines/Building2.visible = true
 	elif active_tool == "destroy":
 		$CursorStuffs/BuildingOutlines/BuildingDestroy.visible = true
+	
+	Signals.emit_signal("active_tool_changed", active_tool)
+
+func _on_button_none_mouse_entered():
+	set_hint("(none)")
 
 func _on_button_belt_mouse_entered():
 	set_hint("Conveyor belt")
@@ -85,6 +90,9 @@ func _on_button_merge_mouse_entered():
 
 func _on_button_common_mouse_exited():
 	clear_hint()
+
+func _on_button_none_pressed():
+	set_active_tool("none")
 
 func _on_button_belt_pressed():
 	set_active_tool("belt")

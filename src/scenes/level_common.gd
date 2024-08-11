@@ -170,8 +170,15 @@ func _ready():
 	level_lock_tilemap.set_layer_enabled(1, false)
 	
 	Signals.connect("goal_completed", on_goal_completed)
+	Signals.connect("active_tool_changed", on_active_tool_changed)
 
 func on_goal_completed(level_index: int):
 	remove_unlocked_objects(level_index)
 	unlock_level(level_index)
 	Lib.get_first_group_member("main_overlays").pop_up_message("[center]New area unlocked[/center]")
+
+func on_active_tool_changed(name: String):
+	if name == "none":
+		$LevelLockTileMap.set_layer_enabled(1, false)
+	else:
+		$LevelLockTileMap.set_layer_enabled(1, true)
