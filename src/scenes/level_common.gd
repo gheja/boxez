@@ -33,7 +33,6 @@ func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
 	var atlas_coord = tilemap.get_cell_atlas_coords(1, source_cell_coord)
 	var alternative_tile = tilemap.get_cell_alternative_tile(1, source_cell_coord)
 	
-	# this does not work on layer 1 for some reason...
 	tilemap.set_cell(1, dest_cell_coord, source_id, atlas_coord, alternative_tile)
 
 func do_destroy(cell_coord: Vector2i):
@@ -48,9 +47,7 @@ func do_build_belt(cell_coord: Vector2i, rotation: int):
 		copy_cell_params(tilemap, Vector2i(2, -2), cell_coord)
 	if rotation % 360 == 270:
 		copy_cell_params(tilemap, Vector2i(3, -2), cell_coord)
-		
-	tilemap.set_cell(1, cell_coord, 0)
-	
+
 func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 	print(cell_coord, ", ", tool, ", ", rotation)
 	if not is_cell_editable(cell_coord):
