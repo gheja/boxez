@@ -23,11 +23,43 @@ func is_cell_editable(cell_coord: Vector2i):
 	if is_cell_locked(cell_coord):
 		return false
 	
-	# if tilemap.get_cell_tile_data(1, cell_coord)
+	# "keep on start" layer
+	if level_lock_tilemap.get_cell_tile_data(1, cell_coord):
+		return
+	
 	return true
+func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
+	var source_id = tilemap.get_cell_source_id(1, source_cell_coord)
+	var atlas_coord = tilemap.get_cell_atlas_coords(1, source_cell_coord)
+	var alternative_tile = tilemap.get_cell_alternative_tile(1, source_cell_coord)
+	
+	# this does not work on layer 1 for some reason...
+	tilemap.set_cell(1, dest_cell_coord, source_id, atlas_coord, alternative_tile)
 
+func do_destroy(cell_coord: Vector2i):
+	tilemap.set_cell(1, cell_coord, -1)
+
+func do_build_belt(cell_coord: Vector2i, rotation: int):
+	if rotation % 360 == 0:
+		copy_cell_params(tilemap, Vector2i(0, -2), cell_coord)
+	elif rotation % 360 == 90:
+		copy_cell_params(tilemap, Vector2i(1, -2), cell_coord)
+	if rotation % 360 == 180:
+		copy_cell_params(tilemap, Vector2i(2, -2), cell_coord)
+	if rotation % 360 == 270:
+		copy_cell_params(tilemap, Vector2i(3, -2), cell_coord)
+		
+	tilemap.set_cell(1, cell_coord, 0)
+	
 func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 	print(cell_coord, ", ", tool, ", ", rotation)
+	if not is_cell_editable(cell_coord):
+		return
+	
+	if tool == "destroy":
+		do_destroy(cell_coord)
+	elif tool == "belt":
+		do_build_belt(cell_coord, rotation)
 
 func remove_unlocked_objects(level_index: int):
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
