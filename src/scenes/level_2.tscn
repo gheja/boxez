@@ -141,6 +141,10 @@ position = Vector2(97, -17)
 rotation = 1.57079
 level_index = 3
 
+[node name="HintSign5" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
+position = Vector2(148, -10)
+hint_text = "The [color=ffe478]Merger[/color] merges boxes, colors or paints boxes with colors."
+
 [node name="MarkerLevelUnlock_L4" parent="EffectsContainer" instance=ExtResource("8_luv47")]
 position = Vector2(159, -44)
 rotation = -1.57079
