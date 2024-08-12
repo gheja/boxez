@@ -115,19 +115,15 @@ func do_build_building(cell_coord: Vector2i, rotation: int, scene_name: String, 
 	building.global_position = pos
 	building.rotation_degrees = rotation
 	
-	# NOTE: the building sprites are poiting upwards, the belt sprite points
-	# to the right so we need to fix that here (also, negative rotation is not
-	# handled, so 270 degrees it is)
-	
 	do_destroy(cell_coord)
-	do_build_belt(cell_coord, rotation + 270)
+	do_build_belt(cell_coord, rotation)
 	
 	if building.is_dual_size:
 		var right_position = building.position + Vector2(8, 0).rotated(building.rotation)
 		var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
 		
 		do_destroy(right_cell_coord)
-		do_build_belt(right_cell_coord, rotation + 270)
+		do_build_belt(right_cell_coord, rotation)
 	
 	$BuildingsContainer.add_child(building)
 
