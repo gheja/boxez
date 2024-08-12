@@ -37,14 +37,14 @@ func handle_belt(a: TileMap, cell_coord: Vector2i):
 	var flip_h = alt_id & TileSetAtlasSource.TRANSFORM_FLIP_H > 0
 	var rotated = alt_id & TileSetAtlasSource.TRANSFORM_TRANSPOSE > 0
 	
-	if not rotated and not flip_h: # >
-		belt_velocity.x = 5
-	elif not rotated and flip_h: # <
-		belt_velocity.x = -5
-	elif rotated and not flip_h: # ^
+	if not rotated and not flip_h: # ^
 		belt_velocity.y = -5
-	elif rotated and flip_h: # v
+	elif not rotated and flip_h: # v
 		belt_velocity.y = 5
+	elif rotated and not flip_h: # <
+		belt_velocity.x = -5
+	elif rotated and flip_h: # >
+		belt_velocity.x = 5
 	# else:
 	# 	?!
 	
