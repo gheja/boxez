@@ -25,6 +25,11 @@ func _on_left_area_area_entered(area):
 		assert(false)
 		return
 	
+	if not completed:
+		var effect = load("res://scenes/effects/effect_goal_ok.tscn").instantiate()
+		effect.global_position = self.global_position
+		self.add_sibling(effect)
+	
 	if completed:
 		return
 	

@@ -6,11 +6,20 @@ extends Node2D
 var belt_count = 0
 
 func unlock_level(n: int):
+	var effect_scene = load("res://scenes/effects/effect_area_reveal.tscn")
+	var effect
+	var pos
+	
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
 		var cell = level_lock_tilemap.get_cell_tile_data(0, cell_coord)
 		
 		if cell.get_custom_data("t_level") == n:
+			pos = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
 			level_lock_tilemap.set_cell(0, cell_coord, -1)
+			
+			effect = effect_scene.instantiate()
+			effect.global_position = pos
+			self.add_sibling.call_deferred(effect)
 
 func is_cell_locked(cell_coord: Vector2i):
 	# the cell is only filled when it is locked
@@ -175,6 +184,9 @@ func _ready():
 func on_goal_completed(level_index: int):
 	remove_unlocked_objects(level_index)
 	unlock_level(level_index)
+	
+	await get_tree().create_timer(0.75).timeout
+	
 	Lib.get_first_group_member("main_overlays").pop_up_message("[center]New area unlocked[/center]")
 
 func on_active_tool_changed(name: String):
