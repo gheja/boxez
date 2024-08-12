@@ -1,7 +1,7 @@
 extends Node2D
 
 @export_enum("object", "paint") var resource_type = "object"
-@export var paint_color: Color = Color(1, 0, 0)
+@export var paint_color: Color = Color(0, 0, 0)
 @export var is_dual_size: bool = false
 @export var mine_interval_sec: float = 1.4
 
