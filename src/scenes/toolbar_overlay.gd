@@ -139,6 +139,8 @@ func _unhandled_input(event):
 				set_active_tool("none")
 			elif event.as_text_physical_keycode() == "R":
 				active_tool_rotation += 90
+			
+			active_tool_rotation = active_tool_rotation % 360
 
 func _on_building_outlines_gui_input(event):
 	if event is InputEventMouseButton:
