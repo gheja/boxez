@@ -1,7 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c575qb6htwcn2"]
+[gd_scene load_steps=8 format=3 uid="uid://c575qb6htwcn2"]
 
 [ext_resource type="Script" path="res://scenes/building_common.gd" id="1_8ejqq"]
 [ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="2_p2u76"]
+[ext_resource type="Texture2D" uid="uid://ico1ojqjc20x" path="res://assets/graphics/buttons.png" id="3_y5pw8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv6vf"]
+atlas = ExtResource("2_p2u76")
+region = Rect2(72, 12, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alo4o"]
+atlas = ExtResource("3_y5pw8")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0i5"]
 size = Vector2(4, 4)
@@ -16,9 +25,11 @@ operation = "rotate"
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-texture = ExtResource("2_p2u76")
-hframes = 30
-vframes = 12
+texture = SubResource("AtlasTexture_lv6vf")
+
+[node name="IconSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(0.94902, 0.65098, 0.368627, 1)
+texture = SubResource("AtlasTexture_alo4o")
 
 [node name="LeftArea" type="Area2D" parent="."]
 collision_layer = 0

@@ -6,6 +6,10 @@ extends Node2D
 var last_object_left: CharacterBody2D = null
 var last_object_right: CharacterBody2D = null
 
+func _ready():
+	if self.get_node("Visuals/IconSprite"):
+		$Visuals/IconSprite.rotation = - self.rotation
+
 func get_obj_object(object_area: Area2D):
 	var parent = object_area.get_parent() as Node2D
 	

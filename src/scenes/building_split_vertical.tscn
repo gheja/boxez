@@ -1,7 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0vixmukwv5gc"]
+[gd_scene load_steps=8 format=3 uid="uid://b0vixmukwv5gc"]
 
 [ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="1_a3o84"]
 [ext_resource type="Script" path="res://scenes/building_common.gd" id="1_iljvp"]
+[ext_resource type="Texture2D" uid="uid://ico1ojqjc20x" path="res://assets/graphics/buttons.png" id="3_m5h3i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68ulx"]
+atlas = ExtResource("1_a3o84")
+region = Rect2(72, 36, 24, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o34fc"]
+atlas = ExtResource("3_m5h3i")
+region = Rect2(8, 0, 8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s287r"]
 size = Vector2(4, 4)
@@ -18,10 +27,11 @@ is_dual_size = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(6, 0)
-texture = ExtResource("1_a3o84")
-hframes = 15
-vframes = 12
-frame = 15
+texture = SubResource("AtlasTexture_68ulx")
+
+[node name="IconSprite" type="Sprite2D" parent="Visuals"]
+modulate = Color(0.94902, 0.65098, 0.368627, 1)
+texture = SubResource("AtlasTexture_o34fc")
 
 [node name="LeftArea" type="Area2D" parent="."]
 collision_layer = 0
