@@ -118,14 +118,18 @@ func do_build_building(cell_coord: Vector2i, rotation: int, scene_name: String, 
 	building.rotation_degrees = rotation
 	
 	do_destroy(cell_coord)
-	do_build_belt(cell_coord, rotation)
 	
 	if building.is_dual_size:
 		var right_position = building.position + Vector2(8, 0).rotated(building.rotation)
 		var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
 		
 		do_destroy(right_cell_coord)
+		
 		do_build_belt(right_cell_coord, rotation)
+	
+	# if there is a building above the right cell destroying it would delete the
+	# belt if we built it earlier
+	do_build_belt(cell_coord, rotation)
 	
 	$BuildingsContainer.add_child(building)
 
