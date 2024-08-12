@@ -49,6 +49,9 @@ func get_unique_index():
 	return _unique_index
 
 func _get_part_description(part: Sprite2D):
+	if not part.visible:
+		return "x"
+	
 	return str(part.frame) + "-" + str(part.modulate.r8) + "-" + str(part.modulate.g8) + "-" + str(part.modulate.b8)
 
 func get_obj_object_description(parts: Node2D):
