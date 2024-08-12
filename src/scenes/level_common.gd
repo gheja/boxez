@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var level_lock_tilemap = $LevelLockTileMap as TileMap
+@onready var fog_tilemap = $FogTileMap as TileMap
 @onready var tilemap = $TileMap as TileMap
 
 var belt_count = 0
@@ -17,6 +18,7 @@ func unlock_level(n: int):
 		if cell.get_custom_data("t_level") == n:
 			pos = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
 			level_lock_tilemap.set_cell(0, cell_coord, -1)
+			fog_tilemap.set_cell(0, cell_coord, -1)
 			
 			effect = effect_scene.instantiate()
 			effect.global_position = pos
@@ -57,12 +59,12 @@ func is_tool_usable_on_cell(cell_coord: Vector2i, tool: String, rotation: int):
 	
 	return true
 
-func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord):
-	var source_id = tilemap.get_cell_source_id(1, source_cell_coord)
-	var atlas_coord = tilemap.get_cell_atlas_coords(1, source_cell_coord)
-	var alternative_tile = tilemap.get_cell_alternative_tile(1, source_cell_coord)
+func copy_cell_params(tilemap: TileMap, source_cell_coord, dest_cell_coord, source_cell_layer: int = 1, dest_cell_layer: int = 1):
+	var source_id = tilemap.get_cell_source_id(source_cell_layer, source_cell_coord)
+	var atlas_coord = tilemap.get_cell_atlas_coords(source_cell_layer, source_cell_coord)
+	var alternative_tile = tilemap.get_cell_alternative_tile(source_cell_layer, source_cell_coord)
 	
-	tilemap.set_cell(1, dest_cell_coord, source_id, atlas_coord, alternative_tile)
+	tilemap.set_cell(dest_cell_layer, dest_cell_coord, source_id, atlas_coord, alternative_tile)
 
 func get_building_on_cell(cell_coord: Vector2i):
 	var pos = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
@@ -160,13 +162,18 @@ func is_coord_locked(coord: Vector2):
 	var cell_coord = level_lock_tilemap.local_to_map(coord)
 	return is_cell_locked(cell_coord)
 
+func init_fog_tilemap():
+	for coord in level_lock_tilemap.get_used_cells(0):
+		copy_cell_params(fog_tilemap, Vector2(0, -3), coord, 0, 0)
+
 func _ready():
+	init_fog_tilemap()
 	remove_unlocked_objects()
 	unlock_level(1)
 	level_lock_tilemap.modulate = Color.WHITE
 	
 	# level lock
-	level_lock_tilemap.set_layer_enabled(0, true)
+	level_lock_tilemap.set_layer_enabled(0, false)
 	
 	# keep on start
 	level_lock_tilemap.set_layer_enabled(1, false)
