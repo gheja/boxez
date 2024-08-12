@@ -23,6 +23,10 @@ func _process(_delta):
 	var tile = a.get_cell_tile_data(1, cell_coord)
 	
 	if not tile:
+		var effect = load("res://scenes/effects/effect_poof.tscn").instantiate()
+		effect.global_position = self.global_position
+		Lib.get_first_group_member("effects_containers").add_child(effect)
+	
 		# no belt below? *poof*
 		self.queue_free()
 		return
