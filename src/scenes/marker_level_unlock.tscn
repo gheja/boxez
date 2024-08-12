@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://dypg12qn8wb4i"]
+
+[ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="1_23xkb"]
+[ext_resource type="Script" path="res://scenes/marker_level_unlock.gd" id="1_r764s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty54a"]
+atlas = ExtResource("1_23xkb")
+region = Rect2(348, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymdrm"]
+atlas = ExtResource("1_23xkb")
+region = Rect2(84, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yex8r"]
+atlas = ExtResource("1_23xkb")
+region = Rect2(72, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_by2dr"]
+atlas = ExtResource("1_23xkb")
+region = Rect2(96, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ttoyp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty54a")
+}],
+"loop": true,
+"name": &"hidden",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymdrm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty54a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yex8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymdrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_by2dr")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_1oin2"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_3ky5a"]
+resource_name = "run"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"run"]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m2dp3"]
+_data = {
+"idle": SubResource("Animation_1oin2"),
+"run": SubResource("Animation_3ky5a")
+}
+
+[node name="MarkerLevelUnlock" type="Node2D"]
+script = ExtResource("1_r764s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.560784, 0.870588, 0.364706, 1)
+sprite_frames = SubResource("SpriteFrames_ttoyp")
+animation = &"idle"
+autoplay = "hidden"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m2dp3")
+}
