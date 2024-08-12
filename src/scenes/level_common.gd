@@ -43,7 +43,11 @@ func is_tool_usable_on_cell(cell_coord: Vector2i, tool: String, rotation: int):
 	if not is_cell_editable(cell_coord):
 		return false
 	
-	if tool == "split_vertical" or tool == "split_horizontal" or tool == "merge":
+	if tool == "belt":
+		if get_building_on_cell(cell_coord):
+			return false
+	
+	elif tool == "split_vertical" or tool == "split_horizontal" or tool == "merge":
 		var left_position = Vector2(cell_coord.x * 8 + 4, cell_coord.y * 8 + 4)
 		var right_position = left_position + Vector2(8, 0).rotated(rotation)
 		var right_cell_coord = Vector2i(round(right_position.x - 4) / 8, round(right_position.y - 4) / 8)
