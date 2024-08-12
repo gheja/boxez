@@ -145,13 +145,8 @@ func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 	elif tool == "belt":
 		do_build_belt(cell_coord, rotation)
 
-func remove_unlocked_objects(level_index: int):
+func remove_unlocked_objects():
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
-		var cell = level_lock_tilemap.get_cell_tile_data(0, cell_coord)
-		
-		if cell.get_custom_data("t_level") != level_index:
-			continue
-		
 		# "keep on start" layer
 		var cell2 = level_lock_tilemap.get_cell_tile_data(1, cell_coord)
 		
@@ -159,17 +154,14 @@ func remove_unlocked_objects(level_index: int):
 			if cell2.get_custom_data("t_keep_on_start"):
 				continue
 		
-		# belt
-		if tilemap.get_cell_source_id(1, cell_coord):
-			tilemap.set_cell(1, cell_coord, -1)
-			belt_count += 1
+		do_destroy(cell_coord)
 
 func is_coord_locked(coord: Vector2):
 	var cell_coord = level_lock_tilemap.local_to_map(coord)
 	return is_cell_locked(cell_coord)
 
 func _ready():
-	# remove_unlocked_objects(1)
+	remove_unlocked_objects()
 	unlock_level(1)
 	level_lock_tilemap.modulate = Color.WHITE
 	
@@ -183,7 +175,6 @@ func _ready():
 	Signals.connect("active_tool_changed", on_active_tool_changed)
 
 func on_goal_completed(level_index: int):
-	remove_unlocked_objects(level_index)
 	unlock_level(level_index)
 	
 	await get_tree().create_timer(0.75).timeout
