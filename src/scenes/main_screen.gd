@@ -4,6 +4,10 @@ var level
 
 func _ready():
 	level = Lib.get_first_group_member("levels")
+	
+	var marker = Lib.get_first_group_member("camera_start_positions")
+	if marker:
+		$Camera2D.global_position = marker.global_position
 
 func _process(_delta):
 	var a = $MainOverlay.scroll_direction
