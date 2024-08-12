@@ -3,8 +3,12 @@ extends Node2D
 @export_enum("object", "paint") var resource_type = "object"
 @export var paint_color: Color = Color(1, 0, 0)
 @export var is_dual_size: bool = false
+@export var mine_interval_sec: float = 1.4
 
 var is_blocked = false
+
+func _ready():
+	$Timer.wait_time = mine_interval_sec
 
 func _on_timer_timeout():
 	if is_blocked:
