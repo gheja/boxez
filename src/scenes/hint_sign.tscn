@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cefigelru4jax"]
+
+[ext_resource type="Script" path="res://scenes/hint_sign.gd" id="1_l07v0"]
+[ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="1_xf68r"]
+[ext_resource type="Theme" uid="uid://c5kdo4nq87ox5" path="res://themes/new_theme.tres" id="3_cv64w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmdnx"]
+atlas = ExtResource("1_xf68r")
+region = Rect2(72, 48, 12, 12)
+
+[node name="HintSign" type="Node2D"]
+script = ExtResource("1_l07v0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_dmdnx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0.376471)
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 62.0
+offset_bottom = 62.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 62.0
+offset_bottom = 63.0
+theme = ExtResource("3_cv64w")
+bbcode_enabled = true
+text = "[center](hint text)[/center]"
+fit_content = true
+scroll_active = false

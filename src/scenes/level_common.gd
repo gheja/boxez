@@ -179,7 +179,7 @@ func on_goal_completed(level_index: int):
 	
 	await get_tree().create_timer(0.75).timeout
 	
-	Lib.get_first_group_member("main_overlays").pop_up_message("[center]New area unlocked[/center]")
+	Lib.get_first_group_member("main_overlays").pop_up_message("New area unlocked!")
 
 func on_active_tool_changed(name: String):
 	if name == "none":

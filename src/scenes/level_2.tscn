@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://u68m30qi8ti0"]
+[gd_scene load_steps=11 format=3 uid="uid://u68m30qi8ti0"]
 
 [ext_resource type="Script" path="res://scenes/level_common.gd" id="1_6cve6"]
 [ext_resource type="TileSet" uid="uid://bh5gmp57hcuuq" path="res://tilesets/tileset_1.tres" id="2_qogue"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://co65uhjbh413l" path="res://scenes/building_miner.tscn" id="6_ihu82"]
 [ext_resource type="PackedScene" uid="uid://c575qb6htwcn2" path="res://scenes/building_rotate.tscn" id="7_wtx4t"]
 [ext_resource type="PackedScene" uid="uid://dypg12qn8wb4i" path="res://scenes/marker_level_unlock.tscn" id="8_luv47"]
+[ext_resource type="PackedScene" uid="uid://cefigelru4jax" path="res://scenes/hint_sign.tscn" id="9_0l2mq"]
 [ext_resource type="TileSet" uid="uid://gcyuid86uha2" path="res://tilesets/tileset_2.tres" id="9_75ali"]
 
 [node name="Level2" type="Node2D" groups=["levels"]]
@@ -115,9 +116,25 @@ modulate = Color(0.494118, 0.494118, 0.560784, 1)
 
 [node name="EffectsContainer" type="Node2D" parent="." groups=["effects_containers"]]
 
+[node name="HintSign" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
+position = Vector2(64, 27)
+hint_text = "Build [color=ffe478]Conveyor belts[/color] to move the Box to the goal."
+
+[node name="HintSign3" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
+position = Vector2(87, 27)
+hint_text = "Use the [color=ffe478]arrow keys[/color] or move the cursor to the edge to scroll."
+
 [node name="MarkerLevelUnlock_L2" parent="EffectsContainer" instance=ExtResource("8_luv47")]
 position = Vector2(87, 27)
 level_index = 2
+
+[node name="HintSign2" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
+position = Vector2(93, -19)
+hint_text = "Press [color=ffe478]R[/color] to rotate the building before placing it."
+
+[node name="HintSign4" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
+position = Vector2(66, 3)
+hint_text = "The [color=ffe478]Horizontal splitter[/color] splits the box in half horizontally."
 
 [node name="MarkerLevelUnlock_L3" parent="EffectsContainer" instance=ExtResource("8_luv47")]
 position = Vector2(97, -17)
