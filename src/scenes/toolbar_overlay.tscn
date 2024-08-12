@@ -60,8 +60,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_74p77")
 script = ExtResource("2_6h8mm")
+
+[node name="ButtonHelpText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 64.0
+offset_bottom = 53.0
+mouse_filter = 1
+text = "Rotate"
 
 [node name="CursorStuffs" type="Control" parent="."]
 layout_mode = 2
@@ -129,9 +138,8 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
-offset_top = -11.0
+offset_top = -10.0
 offset_right = 2.0
-offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -176,15 +184,6 @@ layout_mode = 2
 toggle_mode = true
 icon = SubResource("AtlasTexture_pjrv0")
 metadata/building_type = "destroy"
-
-[node name="ButtonHelpText" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 43.0
-offset_right = 65.0
-offset_bottom = 54.0
-mouse_filter = 1
-text = "Rotate"
 
 [connection signal="gui_input" from="CursorStuffs/BuildingOutlines" to="." method="_on_building_outlines_gui_input"]
 [connection signal="mouse_entered" from="HBoxContainer/ButtonNone" to="." method="_on_button_none_mouse_entered"]

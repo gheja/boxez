@@ -28,6 +28,11 @@ func update_cursor():
 	
 	$CursorStuffs.global_position = cursor_position - camera.global_position + Vector2(32, 32)
 	$CursorStuffs.rotation_degrees = active_tool_rotation
+	
+	if get_local_mouse_position().y > 52:
+		$CursorStuffs.visible = false
+	else:
+		$CursorStuffs.visible = true
 
 func use_tool():
 	level.use_tool(cursor_cell_coord, active_tool, active_tool_rotation)
