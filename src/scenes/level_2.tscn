@@ -29,6 +29,8 @@ rotation = 1.57079
 position = Vector2(44, 20)
 level_index_to_unlock = 2
 
+[node name="EffectsContainer" type="Node2D" parent="." groups=["effects_containers"]]
+
 [node name="LevelLockTileMap" type="TileMap" parent="."]
 modulate = Color(1, 1, 1, 0.752941)
 tile_set = ExtResource("9_75ali")

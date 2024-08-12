@@ -9,6 +9,7 @@ func unlock_level(n: int):
 	var effect_scene = load("res://scenes/effects/effect_area_reveal.tscn")
 	var effect
 	var pos
+	var container = Lib.get_first_group_member("effects_containers")
 	
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
 		var cell = level_lock_tilemap.get_cell_tile_data(0, cell_coord)
@@ -19,7 +20,7 @@ func unlock_level(n: int):
 			
 			effect = effect_scene.instantiate()
 			effect.global_position = pos
-			self.add_sibling.call_deferred(effect)
+			container.add_child.call_deferred(effect)
 
 func is_cell_locked(cell_coord: Vector2i):
 	# the cell is only filled when it is locked

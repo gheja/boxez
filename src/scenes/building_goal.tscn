@@ -1,8 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bijx0cts27v4h"]
+[gd_scene load_steps=7 format=3 uid="uid://bijx0cts27v4h"]
 
 [ext_resource type="Script" path="res://scenes/building_goal.gd" id="1_mmceh"]
 [ext_resource type="Texture2D" uid="uid://t2eo71jbjc7u" path="res://assets/buildings.png" id="2_1y3kx"]
 [ext_resource type="Texture2D" uid="uid://dye4ubmolbe14" path="res://assets/tiles.png" id="3_dkg74"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvv8g"]
+atlas = ExtResource("2_1y3kx")
+region = Rect2(36, 48, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecmj2"]
+atlas = ExtResource("2_1y3kx")
+region = Rect2(48, 48, 12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ys10p"]
 size = Vector2(4, 4)
@@ -48,6 +56,16 @@ hframes = 45
 vframes = 20
 frame = 408
 
+[node name="ResponseSprites" type="Node2D" parent="Visuals"]
+
+[node name="FailSprite" type="Sprite2D" parent="Visuals/ResponseSprites"]
+visible = false
+texture = SubResource("AtlasTexture_lvv8g")
+
+[node name="OkSprite" type="Sprite2D" parent="Visuals/ResponseSprites"]
+visible = false
+texture = SubResource("AtlasTexture_ecmj2")
+
 [node name="LeftArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -59,5 +77,10 @@ shape = SubResource("RectangleShape2D_ys10p")
 wait_time = 1.4
 autostart = true
 
+[node name="ResponseTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="area_entered" from="LeftArea" to="." method="_on_left_area_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ResponseTimer" to="." method="_on_response_timer_timeout"]
