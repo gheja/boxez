@@ -53,7 +53,7 @@ region = Rect2(32, 0, 8, 8)
 atlas = ExtResource("4_3konl")
 region = Rect2(24, 0, 8, 8)
 
-[node name="ToolbarOverlay" type="Control"]
+[node name="ToolbarOverlay" type="Control" groups=["toolbar_overlays"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

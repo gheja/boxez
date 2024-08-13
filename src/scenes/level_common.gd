@@ -3,7 +3,7 @@ extends Node2D
 @onready var level_lock_tilemap = $LevelLockTileMap as TileMap
 @onready var fog_tilemap = $FogTileMap as TileMap
 @onready var tilemap = $TileMap as TileMap
-
+var toolbar_overlay: Control
 var belt_count = 0
 
 func unlock_level(n: int):
@@ -171,9 +171,12 @@ func init_fog_tilemap():
 		copy_cell_params(fog_tilemap, Vector2(0, -3), coord, 0, 0)
 
 func _ready():
+	toolbar_overlay = Lib.get_first_group_member("toolbar_overlays")
+	
 	init_fog_tilemap()
 	remove_unlocked_objects()
 	unlock_level(1)
+	toolbar_overlay.unlock_tool("belt")
 	level_lock_tilemap.modulate = Color.WHITE
 	
 	# level lock
@@ -187,6 +190,15 @@ func _ready():
 
 func on_goal_completed(level_index: int):
 	unlock_level(level_index)
+	
+	if level_index == 2:
+		toolbar_overlay.unlock_tool("split_horizontal")
+	elif level_index == 3:
+		toolbar_overlay.unlock_tool("merge")
+	elif level_index == 4:
+		toolbar_overlay.unlock_tool("rotate")
+	elif level_index == 5:
+		toolbar_overlay.unlock_tool("split_vertical")
 	
 	await get_tree().create_timer(0.75).timeout
 	

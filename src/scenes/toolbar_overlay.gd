@@ -7,10 +7,15 @@ var active_tool_rotation = 0
 var cursor_position
 var cursor_cell_coord
 
+var valid_tools = [ "none", "belt", "rotate", "split_vertical", "split_horizontal", "merge", "destroy" ]
+var unlocked_tools = [ ]
+
 func _ready():
 	clear_hint()
 	level = Lib.get_first_group_member("levels")
 	camera = Lib.get_first_group_member("cameras")
+	unlock_tool("none")
+	unlock_tool("destroy")
 	set_active_tool("none")
 
 func get_cell_coord(pos: Vector2):
@@ -46,7 +51,30 @@ func set_hint(s: String):
 func clear_hint():
 	set_hint("")
 
+func set_tool_button_status(button: Button, tool_name: String):
+	button.disabled = not tool_name in unlocked_tools
+
+func update_tool_buttons():
+	set_tool_button_status($HBoxContainer/ButtonBelt, "belt")
+	set_tool_button_status($HBoxContainer/ButtonRotate, "rotate")
+	set_tool_button_status($HBoxContainer/ButtonSplitVertical, "split_vertical")
+	set_tool_button_status($HBoxContainer/ButtonSplitHorizontal, "split_horizontal")
+	set_tool_button_status($HBoxContainer/ButtonMerge, "merge")
+	set_tool_button_status($HBoxContainer/ButtonDestroy, "destroy")
+
+func unlock_tool(tool_name: String):
+	assert(tool_name in valid_tools)
+	if tool_name in unlocked_tools:
+		return
+	
+	unlocked_tools.append(tool_name)
+	
+	update_tool_buttons()
+
 func set_active_tool(s: String):
+	if not s in unlocked_tools:
+		return
+	
 	for button in $HBoxContainer.get_children():
 		if button.get_meta("building_type") == s:
 			button.button_pressed = true
