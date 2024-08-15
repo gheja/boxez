@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Lowrezjam 2024 entry by gheja"
+config/name="Boxez"
 run/main_scene="res://scenes/load_screen.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
