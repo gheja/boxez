@@ -142,16 +142,22 @@ func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 	
 	if tool == "destroy":
 		do_destroy(cell_coord)
+		AudioManager.play_sound(3, 0.7, 1.5)
 	elif tool == "rotate":
 		do_build_building(cell_coord, rotation, "rotate", 0)
+		AudioManager.play_sound(2, 0.5, 0.8)
 	elif tool == "split_vertical":
 		do_build_building(cell_coord, rotation, "split_vertical", 0)
+		AudioManager.play_sound(2, 0.5, 0.8)
 	elif tool == "split_horizontal": # TODO: this should be a variant!!!
 		do_build_building(cell_coord, rotation, "split_horizontal", 0)
+		AudioManager.play_sound(2, 0.5, 0.8)
 	elif tool == "merge":
 		do_build_building(cell_coord, rotation, "merge", 0)
+		AudioManager.play_sound(2, 0.5, 0.8)
 	elif tool == "belt":
 		do_build_belt(cell_coord, rotation)
+		AudioManager.play_sound(2, 1.3, 1.6)
 
 func remove_unlocked_objects():
 	for cell_coord in level_lock_tilemap.get_used_cells(0):

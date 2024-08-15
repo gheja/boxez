@@ -82,6 +82,9 @@ func set_active_tool(s: String):
 		else:
 			button.button_pressed = false
 	
+	if active_tool != s:
+		AudioManager.play_sound(5, 1.0, 1.0)
+	
 	active_tool = s
 	
 	$CursorStuffs/BuildingOutlines/BuildingBelt.visible = false
@@ -166,9 +169,10 @@ func _unhandled_input(event):
 			elif event.as_text_physical_keycode() == "Q":
 				set_active_tool("none")
 			elif event.as_text_physical_keycode() == "R":
-				active_tool_rotation += 90
-			
-			active_tool_rotation = active_tool_rotation % 360
+				if active_tool != "none" and active_tool != "destroy":
+					active_tool_rotation += 90
+					active_tool_rotation = active_tool_rotation % 360
+					AudioManager.play_sound(4, 1.0, 1.25)
 
 func _on_building_outlines_gui_input(event):
 	if event is InputEventMouseButton:

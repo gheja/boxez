@@ -8,10 +8,15 @@ var menu_music_volume_target = 1.0
 var sounds = [
 	preload("res://assets/music/kim_lightyear_-_illusion.ogg"), # 0
 	preload("res://assets/music/kim_lightyear_-_voices_without_voices.ogg"),
+	preload("res://assets/sounds/impactPlank_medium_000.ogg"),
+	preload("res://assets/sounds/footstep_snow_000.ogg"),
+	preload("res://assets/sounds/dropLeather.ogg"),
+	preload("res://assets/sounds/kenney_beltHandle1_edited.ogg"),
 ]
 
 var volume_overrides = [
 	0.3, 0.3,
+	1.0, 0.55, 0.4, 1.33
 ]
 
 func play_sound(index, pitch_shift_min: float = 1.0, pitch_shift_max: float = 1.0):
@@ -25,9 +30,9 @@ func play_sound(index, pitch_shift_min: float = 1.0, pitch_shift_max: float = 1.
 	if pitch_shift_min != 1.0 or pitch_shift_max != 1.0:
 		tmp.pitch_scale = randf_range(pitch_shift_min, pitch_shift_max)
 	
-	tmp.play()
-	
 	get_tree().root.call_deferred("add_child", tmp)
+	
+	tmp.play.call_deferred()
 
 func _ready():
 	menu_music_volume_target = 1.0
