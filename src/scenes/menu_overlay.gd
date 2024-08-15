@@ -38,6 +38,17 @@ func do_transition():
 	AudioManager.start_main_music()
 	AudioManager.fade_menu_music()
 
+func has_activity():
+	$LogoTimer.stop()
+	$LogoTimer.start()
+	$AnimationPlayer2.play("idle")
+
 func _on_color_rect_gui_input(event):
 	if event is InputEventMouseButton:
 		do_transition()
+	
+	if event is InputEventMouseMotion:
+		has_activity()
+
+func _on_logo_timer_timeout():
+	$AnimationPlayer2.play("run")
