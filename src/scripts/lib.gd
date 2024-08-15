@@ -17,7 +17,7 @@ func _process(delta):
 func belt_step_sync():
 	# TODO: this might get out of sync if dropping frames, might need to reconsider
 	
-	if frame_number % 6 == 1:
+	if frame_number % 6 == 2:
 		return true
 	
 	return false

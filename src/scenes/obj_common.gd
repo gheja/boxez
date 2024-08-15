@@ -5,10 +5,12 @@ extends CharacterBody2D
 var belt_velocity = Vector2.ZERO
 var held_at_building = false
 var debug_name = "?"
+var mining_name = "?"
 var is_currenty_in_building = false
 
 func _ready():
 	debug_name = "obj-" + str(Lib.get_unique_index())
+	print("[new] ", debug_name)
 
 func _process(_delta):
 	if not Lib.belt_step_sync():

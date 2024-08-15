@@ -172,26 +172,6 @@ func init_fog_tilemap():
 	for coord in level_lock_tilemap.get_used_cells(0):
 		copy_cell_params(fog_tilemap, Vector2(0, -3), coord, 0, 0)
 
-func do_ticks_on_objects():
-	var objects = []
-	objects.append_array($ObjectsContainer.get_children())
-	objects.append_array($BuildingsContainer.get_children())
-	objects.append_array($EffectsContainer.get_children())
-	
-	for obj in objects:
-		if "_process" in obj:
-			obj._process(1/60)
-
-func do_miner_mining():
-	for obj in get_tree().get_nodes_in_group("building_miners"):
-		obj._on_timer_timeout()
-
-func do_ticks(tick_count: int):
-	for i in range(tick_count):
-		do_ticks_on_objects()
-		if i % 168 == 0:
-			do_miner_mining()
-
 func _ready():
 	if not demo_mode:
 		toolbar_overlay = Lib.get_first_group_member("toolbar_overlays")
@@ -210,9 +190,6 @@ func _ready():
 	
 	Signals.connect("goal_completed", on_goal_completed)
 	Signals.connect("active_tool_changed", on_active_tool_changed)
-	
-	if demo_mode:
-		do_ticks(1000)
 
 func on_goal_completed(level_index: int):
 	if demo_mode:
@@ -238,3 +215,4 @@ func on_active_tool_changed(name: String):
 		$LevelLockTileMap.set_layer_enabled(1, false)
 	else:
 		$LevelLockTileMap.set_layer_enabled(1, true)
+

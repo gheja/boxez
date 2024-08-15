@@ -6,6 +6,7 @@ extends Node2D
 @export var mine_interval_sec: float = 1.4
 
 var is_blocked = false
+var mine_index = 0
 
 func _ready():
 	$Timer.wait_time = mine_interval_sec
@@ -15,6 +16,7 @@ func _on_timer_timeout():
 		return
 	
 	var other
+	mine_index += 1
 	
 	if resource_type == "object":
 		other = load("res://scenes/obj_object.tscn").instantiate()
@@ -23,6 +25,8 @@ func _on_timer_timeout():
 		other.set_paint_color(paint_color)
 	
 	other.global_position += self.global_position
+	other.mining_name = "mined," + str(round(self.global_position.x)) + ","  + str(round(self.global_position.y)) + "," + str(mine_index)
+	print(other.mining_name)
 	Lib.get_first_group_member("objects_containers").add_child(other)
 
 func _on_left_area_area_entered(area):
