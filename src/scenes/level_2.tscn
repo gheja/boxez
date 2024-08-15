@@ -74,7 +74,6 @@ layer_1/tile_data = PackedInt32Array(131081, 1, 1, -131072, 1, 1, -131071, 1, 13
 [node name="ObjectsContainer" type="Node2D" parent="." groups=["objects_containers"]]
 
 [node name="BuildingsContainer" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.466667)
 
 [node name="BuildingMiner" parent="BuildingsContainer" instance=ExtResource("6_ihu82")]
 position = Vector2(76, 60)
