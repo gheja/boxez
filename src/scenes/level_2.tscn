@@ -257,19 +257,19 @@ position = Vector2(62, -92)
 hint_text = "The [color=ffe478]Merger[/color] can combine two shapes as well."
 
 [node name="HintSign8" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
-position = Vector2(188, -140)
+position = Vector2(196, -140)
 hint_text = "[color=ffe478]Thank you so much[/color] for playing!"
 
 [node name="HintSign9" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
-position = Vector2(196, -140)
+position = Vector2(204, -140)
 hint_text = "This short demo ends here but I might extend the game a bit more."
 
 [node name="HintSign10" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
-position = Vector2(204, -140)
+position = Vector2(212, -140)
 hint_text = "No promises though... :)"
 
 [node name="HintSign11" parent="EffectsContainer" instance=ExtResource("9_0l2mq")]
-position = Vector2(220, -84)
+position = Vector2(228, -84)
 hint_text = "Private sign. Do not read."
 
 [node name="LevelLockTileMap" type="TileMap" parent="."]
