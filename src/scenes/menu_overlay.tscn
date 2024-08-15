@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctvj2blxjjd7s"]
+
+[ext_resource type="Theme" uid="uid://c5kdo4nq87ox5" path="res://themes/new_theme.tres" id="1_obvkv"]
+[ext_resource type="Script" path="res://scenes/menu_overlay.gd" id="2_lu32o"]
+
+[node name="MenuOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_obvkv")
+script = ExtResource("2_lu32o")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 43.0
+offset_right = 65.0
+offset_bottom = 67.0
+text = "Music:
+  Kim Lightyear"
+fit_content = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

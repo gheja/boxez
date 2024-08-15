@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://db5j1uoov56xn"]
+
+[ext_resource type="PackedScene" uid="uid://ctvj2blxjjd7s" path="res://scenes/menu_overlay.tscn" id="1_eseft"]
+
+[node name="MenuScreen" type="Node2D"]
+
+[node name="MenuOverlay" parent="." instance=ExtResource("1_eseft")]
