@@ -3,6 +3,7 @@ extends Node2D
 var level
 var frame_number = 0
 
+
 var demo_follows = [
 	# [ frame_number, object_name ]
 	[ 0, "mined,76,60", 1 ],
@@ -56,4 +57,5 @@ func _process(_delta):
 	if obj:
 		$Camera2D.global_position = obj.global_position
 		print(frame_number, " ", $Camera2D.global_position)
+
 

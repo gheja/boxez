@@ -1,5 +1,6 @@
 extends Control
 
+var transition_active = false
 var credits_texts = [
 	"",
 	"Code:\n  Gabor Heja",
@@ -26,3 +27,17 @@ func _on_timer_timeout():
 		credits_index = 0
 	
 	$CanvasLayer/RichTextLabel.text = credits_texts[credits_index]
+
+func do_transition():
+	if transition_active:
+		return
+	
+	transition_active = true
+	
+	get_tree().change_scene_to_file("res://scenes/main_screen.tscn")
+	AudioManager.start_main_music()
+	AudioManager.fade_menu_music()
+
+func _on_color_rect_gui_input(event):
+	if event is InputEventMouseButton:
+		do_transition()
