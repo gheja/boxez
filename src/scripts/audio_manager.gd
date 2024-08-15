@@ -12,20 +12,23 @@ var sounds = [
 	preload("res://assets/sounds/footstep_snow_000.ogg"),
 	preload("res://assets/sounds/dropLeather.ogg"),
 	preload("res://assets/sounds/kenney_beltHandle1_edited.ogg"),
+	preload("res://assets/sounds/impactMining_001_edited.ogg"),
 ]
 
 var volume_overrides = [
-	0.3, 0.3,
-	1.0, 0.55, 0.4, 1.33
+	0.3, 0.25,
+	0.8, 0.3, 0.4, 1.33, 1.33
 ]
 
-func play_sound(index, pitch_shift_min: float = 1.0, pitch_shift_max: float = 1.0):
+func play_sound(index, pitch_shift_min: float = 1.0, pitch_shift_max: float = 1.0, volume_multiplier: float = 1.0):
 	var tmp = AudioStreamPlayer.new()
 	tmp.stream = sounds[index]
 	tmp.bus = "SFX"
 	
 	if volume_overrides.size() > index and volume_overrides[index] != null:
-		tmp.volume_db = linear_to_db(volume_overrides[index])
+		tmp.volume_db = linear_to_db(volume_overrides[index] * volume_multiplier)
+	else:
+		tmp.volume_db = linear_to_db(1.0 * volume_multiplier)
 	
 	if pitch_shift_min != 1.0 or pitch_shift_max != 1.0:
 		tmp.pitch_scale = randf_range(pitch_shift_min, pitch_shift_max)

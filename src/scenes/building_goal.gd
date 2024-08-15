@@ -41,6 +41,8 @@ func _on_left_area_area_entered(area):
 		effect.global_position = self.global_position
 		Lib.get_first_group_member("effects_containers").add_child(effect)
 		
+		AudioManager.play_sound(6, 1.0, 1.0)
+		
 		completed = true
 		$Visuals/Sprite2D.frame += 1
 		Signals.emit_signal("goal_completed", level_index_to_unlock)

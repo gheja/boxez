@@ -157,7 +157,7 @@ func use_tool(cell_coord: Vector2i, tool: String, rotation: int):
 		AudioManager.play_sound(2, 0.5, 0.8)
 	elif tool == "belt":
 		do_build_belt(cell_coord, rotation)
-		AudioManager.play_sound(2, 1.3, 1.6)
+		AudioManager.play_sound(2, 1.3, 1.6, 0.5)
 
 func remove_unlocked_objects():
 	for cell_coord in level_lock_tilemap.get_used_cells(0):
