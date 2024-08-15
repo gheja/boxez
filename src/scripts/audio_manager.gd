@@ -30,9 +30,6 @@ func play_sound(index, pitch_shift_min: float = 1.0, pitch_shift_max: float = 1.
 	get_tree().root.call_deferred("add_child", tmp)
 
 func _ready():
-	start_menu_music()
-
-func start_menu_music():
 	menu_music_volume_target = 1.0
 	menu_music_player = AudioStreamPlayer.new()
 	menu_music_player.stream = sounds[0]
@@ -40,7 +37,8 @@ func start_menu_music():
 	menu_music_player.bus = "Menu Music"
 	
 	get_tree().root.call_deferred("add_child", menu_music_player)
-	
+
+func start_menu_music():
 	menu_music_player.play.call_deferred()
 
 func start_main_music():
