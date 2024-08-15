@@ -273,6 +273,17 @@ layer_0/tile_data = PackedInt32Array(-196608, 131074, 1)
 [node name="CameraStartPosition" type="Marker2D" parent="." groups=["camera_start_positions"]]
 position = Vector2(76, 52)
 
+[node name="DemoCameraPositions" type="Node2D" parent="."]
+
+[node name="Marker2D3" type="Marker2D" parent="DemoCameraPositions"]
+position = Vector2(28, -68)
+
+[node name="Marker2D" type="Marker2D" parent="DemoCameraPositions"]
+position = Vector2(116, -28)
+
+[node name="Marker2D2" type="Marker2D" parent="DemoCameraPositions"]
+position = Vector2(84, -52)
+
 [editable path="BuildingsContainer/BuildingGoal_L3"]
 [editable path="BuildingsContainer/BuildingGoal_L4"]
 [editable path="BuildingsContainer/BuildingGoal_L5"]

@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ys10p"]
 size = Vector2(8, 8)
 
-[node name="BuildingMiner" type="Node2D"]
+[node name="BuildingMiner" type="Node2D" groups=["building_miners"]]
 script = ExtResource("1_3anpf")
 
 [node name="Visuals" type="Node2D" parent="."]

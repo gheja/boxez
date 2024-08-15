@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://db5j1uoov56xn"]
+[gd_scene load_steps=3 format=3 uid="uid://db5j1uoov56xn"]
 
 [ext_resource type="PackedScene" uid="uid://ctvj2blxjjd7s" path="res://scenes/menu_overlay.tscn" id="1_eseft"]
+[ext_resource type="PackedScene" uid="uid://u68m30qi8ti0" path="res://scenes/level_2.tscn" id="2_id8pa"]
 
 [node name="MenuScreen" type="Node2D"]
+
+[node name="LevelContainer" type="Node2D" parent="."]
+
+[node name="Level2" parent="LevelContainer" instance=ExtResource("2_id8pa")]
+demo_mode = true
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["cameras"]]
+position = Vector2(74, 29)
 
 [node name="MenuOverlay" parent="." instance=ExtResource("1_eseft")]

@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var demo_mode = false
+
 @onready var level_lock_tilemap = $LevelLockTileMap as TileMap
 @onready var fog_tilemap = $FogTileMap as TileMap
 @onready var tilemap = $TileMap as TileMap
@@ -170,14 +172,35 @@ func init_fog_tilemap():
 	for coord in level_lock_tilemap.get_used_cells(0):
 		copy_cell_params(fog_tilemap, Vector2(0, -3), coord, 0, 0)
 
-func _ready():
-	toolbar_overlay = Lib.get_first_group_member("toolbar_overlays")
+func do_ticks_on_objects():
+	var objects = []
+	objects.append_array($ObjectsContainer.get_children())
+	objects.append_array($BuildingsContainer.get_children())
+	objects.append_array($EffectsContainer.get_children())
 	
-	init_fog_tilemap()
-	remove_unlocked_objects()
-	unlock_level(1)
-	toolbar_overlay.unlock_tool("belt")
-	level_lock_tilemap.modulate = Color.WHITE
+	for obj in objects:
+		if "_process" in obj:
+			obj._process(1/60)
+
+func do_miner_mining():
+	for obj in get_tree().get_nodes_in_group("building_miners"):
+		obj._on_timer_timeout()
+
+func do_ticks(tick_count: int):
+	for i in range(tick_count):
+		do_ticks_on_objects()
+		if i % 168 == 0:
+			do_miner_mining()
+
+func _ready():
+	if not demo_mode:
+		toolbar_overlay = Lib.get_first_group_member("toolbar_overlays")
+		
+		init_fog_tilemap()
+		remove_unlocked_objects()
+		unlock_level(1)
+		toolbar_overlay.unlock_tool("belt")
+		level_lock_tilemap.modulate = Color.WHITE
 	
 	# level lock
 	level_lock_tilemap.set_layer_enabled(0, false)
@@ -187,8 +210,14 @@ func _ready():
 	
 	Signals.connect("goal_completed", on_goal_completed)
 	Signals.connect("active_tool_changed", on_active_tool_changed)
+	
+	if demo_mode:
+		do_ticks(1000)
 
 func on_goal_completed(level_index: int):
+	if demo_mode:
+		return
+	
 	unlock_level(level_index)
 	
 	if level_index == 2:
