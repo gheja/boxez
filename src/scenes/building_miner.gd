@@ -26,7 +26,7 @@ func _on_timer_timeout():
 	
 	other.global_position += self.global_position
 	other.mining_name = "mined," + str(round(self.global_position.x)) + ","  + str(round(self.global_position.y)) + "," + str(mine_index)
-	print(other.mining_name)
+	# print(other.mining_name)
 	Lib.get_first_group_member("objects_containers").add_child(other)
 
 func _on_left_area_area_entered(area):
