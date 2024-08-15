@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Lib="*res://scripts/lib.gd"
 Signals="*res://scripts/signals.gd"
+AudioManager="*res://scripts/audio_manager.gd"
 
 [display]
 
