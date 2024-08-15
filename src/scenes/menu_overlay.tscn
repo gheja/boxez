@@ -5,21 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://d0ajx5sgvm20w" path="res://assets/graphics/logo.png" id="3_466x8"]
 [ext_resource type="Texture2D" uid="uid://lbkmuwy2vwns" path="res://assets/graphics/logo2.png" id="4_waw3x"]
 
-[sub_resource type="Animation" id="Animation_7e2hn"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_7exst"]
 resource_name = "default"
 length = 2.0
@@ -36,10 +21,40 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_7e2hn"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ubnq"]
 _data = {
 "default": SubResource("Animation_7exst"),
 "idle": SubResource("Animation_7e2hn")
+}
+
+[sub_resource type="Animation" id="Animation_cei22"]
+resource_name = "hidden"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_oqjw0"]
@@ -73,21 +88,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_cei22"]
-resource_name = "hidden"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yjoa"]
 _data = {
 "hidden": SubResource("Animation_cei22"),
@@ -108,18 +108,18 @@ script = ExtResource("2_lu32o")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 29.0
+offset_left = 31.0
 offset_top = 1.0
-offset_right = 63.0
+offset_right = 65.0
 offset_bottom = 11.0
 texture = ExtResource("3_466x8")
 stretch_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.376471)
-offset_left = 29.0
+offset_left = 31.0
 offset_top = 1.0
-offset_right = 63.0
+offset_right = 65.0
 offset_bottom = 11.0
 texture = ExtResource("4_waw3x")
 stretch_mode = 2
@@ -156,8 +156,8 @@ autoplay = "default"
 libraries = {
 "": SubResource("AnimationLibrary_3yjoa")
 }
-next/run = &"hidden"
 next/hidden = &"hidden"
+next/run = &"hidden"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
