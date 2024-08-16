@@ -179,7 +179,9 @@ func init_fog_tilemap():
 		copy_cell_params(fog_tilemap, Vector2(0, -3), coord, 0, 0)
 
 func _ready():
-	if not demo_mode:
+	Lib.demo_mode = demo_mode
+	
+	if not Lib.demo_mode:
 		toolbar_overlay = Lib.get_first_group_member("toolbar_overlays")
 		
 		init_fog_tilemap()
@@ -198,7 +200,7 @@ func _ready():
 	Signals.connect("active_tool_changed", on_active_tool_changed)
 
 func on_goal_completed(level_index: int):
-	if demo_mode:
+	if Lib.demo_mode:
 		return
 	
 	unlock_level(level_index)
@@ -221,4 +223,3 @@ func on_active_tool_changed(name: String):
 		$LevelLockTileMap.set_layer_enabled(1, false)
 	else:
 		$LevelLockTileMap.set_layer_enabled(1, true)
-
