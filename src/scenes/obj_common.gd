@@ -16,25 +16,25 @@ func _process(_delta):
 	if not Lib.belt_step_sync():
 		return
 	
-	if held_at_building:
-		return
-	
+	# get the tile below the object on the "belts" layer
 	var a = Lib.get_first_group_member("main_tilemaps") as TileMap
-	
 	var cell_coord = a.local_to_map(self.position)
 	var tile = a.get_cell_tile_data(1, cell_coord)
 	
+	# if there is nothing below the object (i.e. no belt)
 	if not tile:
 		var effect = load("res://scenes/effects/effect_poof.tscn").instantiate()
 		effect.global_position = self.global_position
 		Lib.get_first_group_member("effects_containers").add_child(effect)
 	
-		# no belt below? *poof*
 		self.queue_free()
+		
 		return
 	
-	if tile.get_custom_data("t_type") == "belt":
-		handle_belt(a, cell_coord)
+	# only move if not being held at a building
+	if not held_at_building:
+		if tile.get_custom_data("t_type") == "belt":
+			handle_belt(a, cell_coord)
 
 func handle_belt(a: TileMap, cell_coord: Vector2i):
 	var alt_id = a.get_cell_alternative_tile(1, cell_coord)
