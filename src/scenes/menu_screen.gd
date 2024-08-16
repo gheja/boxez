@@ -57,5 +57,3 @@ func _process(_delta):
 	if obj:
 		$Camera2D.global_position = obj.global_position
 		# print(frame_number, " ", $Camera2D.global_position)
-
-
