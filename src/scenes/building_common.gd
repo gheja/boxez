@@ -50,6 +50,11 @@ func _on_left_area_area_entered(area: Area2D):
 	
 	tmp.is_currenty_in_building = true
 	
+	# snap the object to the center of the area to make sure it does not block both slots
+	# but only if it is not the demo, following the object looks bad with the snapping
+	if not Lib.demo_mode:
+		tmp.global_position = $LeftArea/CollisionShape2D_1.global_position
+	
 	last_object_left = tmp
 	area_entered(tmp, $RightArea/CollisionShape2D_2.global_position - $LeftArea/CollisionShape2D_1.global_position)
 	handle_dual_input()
@@ -69,6 +74,11 @@ func _on_right_area_area_entered(area: Area2D):
 		return
 	
 	tmp.is_currenty_in_building = true
+	
+	# snap the object to the center of the area to make sure it does not block both slots
+	# but only if it is not the demo, following the object looks bad with the snapping
+	if not Lib.demo_mode:
+		tmp.global_position = $RightArea/CollisionShape2D_2.global_position
 	
 	last_object_right = tmp
 	area_entered(tmp, $LeftArea/CollisionShape2D_1.global_position - $RightArea/CollisionShape2D_2.global_position)
