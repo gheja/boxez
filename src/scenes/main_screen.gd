@@ -10,7 +10,8 @@ func _ready():
 		$Camera2D.global_position = marker.global_position
 
 func _process(_delta):
-	var a = $MainOverlay.scroll_direction
+	# var a = $MainOverlay.scroll_direction
+	var a = Vector2.ZERO
 	a.x += Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	a.y += Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
