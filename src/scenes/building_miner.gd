@@ -34,4 +34,3 @@ func _on_left_area_area_entered(area):
 
 func _on_left_area_area_exited(area):
 	is_blocked = false
-
