@@ -189,6 +189,8 @@ func _ready():
 		unlock_level(1)
 		toolbar_overlay.unlock_tool("belt")
 		level_lock_tilemap.modulate = Color.WHITE
+		
+		Signals.connect("inactivity_changed", on_inactivity_changed)
 	
 	# level lock
 	level_lock_tilemap.set_layer_enabled(0, false)
@@ -223,3 +225,9 @@ func on_active_tool_changed(name: String):
 		$LevelLockTileMap.set_layer_enabled(1, false)
 	else:
 		$LevelLockTileMap.set_layer_enabled(1, true)
+
+func on_inactivity_changed(inactive: bool):
+	if not inactive:
+		$AnimationPlayer.play("normal")
+	else:
+		$AnimationPlayer.play("run")

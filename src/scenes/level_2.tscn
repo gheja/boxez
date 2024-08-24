@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://u68m30qi8ti0"]
+[gd_scene load_steps=19 format=3 uid="uid://u68m30qi8ti0"]
 
 [ext_resource type="Script" path="res://scenes/level_common.gd" id="1_6cve6"]
 [ext_resource type="TileSet" uid="uid://bh5gmp57hcuuq" path="res://tilesets/tileset_1.tres" id="2_qogue"]
@@ -59,6 +59,62 @@ texture_region_size = Vector2i(8, 8)
 [sub_resource type="TileSet" id="TileSet_qa702"]
 tile_size = Vector2i(8, 8)
 sources/2 = SubResource("TileSetAtlasSource_475sa")
+
+[sub_resource type="Animation" id="Animation_qmcq1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelLockTileMap:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.501961)]
+}
+
+[sub_resource type="Animation" id="Animation_6db7s"]
+resource_name = "run"
+length = 3.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelLockTileMap:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ad1t1"]
+resource_name = "normal"
+length = 3.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelLockTileMap:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3g5st"]
+_data = {
+"RESET": SubResource("Animation_qmcq1"),
+"normal": SubResource("Animation_ad1t1"),
+"run": SubResource("Animation_6db7s")
+}
 
 [node name="Level2" type="Node2D" groups=["levels"]]
 script = ExtResource("1_6cve6")
@@ -417,6 +473,11 @@ layer_0/tile_data = PackedInt32Array(-196608, 131074, 1)
 
 [node name="CameraStartPosition" type="Marker2D" parent="." groups=["camera_start_positions"]]
 position = Vector2(76, 52)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3g5st")
+}
 
 [editable path="BuildingsContainer/BuildingGoal_L3"]
 [editable path="BuildingsContainer/BuildingGoal_L4"]

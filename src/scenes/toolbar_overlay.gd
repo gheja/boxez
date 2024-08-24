@@ -105,6 +105,7 @@ func set_active_tool(s: String):
 		$CursorStuffs/BuildingOutlines/BuildingDestroy.visible = true
 	
 	Signals.emit_signal("active_tool_changed", active_tool)
+	Signals.emit_signal("inactivity_changed", false)
 
 func _on_button_none_mouse_entered():
 	set_hint("(none)")

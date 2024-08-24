@@ -5,7 +5,7 @@ var scroll_direction = Vector2.ZERO
 const SCROLL_EDGE_SIZE = 3
 
 func _ready():
-	pass # Replace with function body.
+	Signals.connect("inactivity_changed", on_inactivity_changed)
 
 func _process(delta):
 	var pos = $CanvasLayer/Control123.get_local_mouse_position()
@@ -26,3 +26,21 @@ func pop_up_message(message):
 	var tmp = load("res://scenes/message_overlay.tscn").instantiate()
 	tmp.pop_up_message(message)
 	$CanvasLayer.add_child(tmp)
+
+func has_activity():
+	Signals.emit_signal("inactivity_changed", false)
+
+func _unhandled_input(event: InputEvent):
+	if event is InputEventMouseMotion:
+		has_activity()
+
+func on_inactivity_changed(inactive: bool):
+	if not inactive:
+		$Timer.stop()
+		$Timer.start()
+		$AnimationPlayer.play("normal")
+	else:
+		$AnimationPlayer.play("run")
+
+func _on_timer_timeout():
+	Signals.emit_signal("inactivity_changed", true)
